@@ -3,7 +3,7 @@ import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 
 import SignIn from '../components/signIn';
-import SignUp from '../components/signUp'; 
+import SignUp from '../components/SignUp/signUp'; 
 
 const ReactRouter = () => {
 
