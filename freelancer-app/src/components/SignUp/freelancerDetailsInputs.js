@@ -17,7 +17,7 @@ export default function FreelancerDetailsInputs(props) {
 
     return (
 
-        <Grid container spacing={3} className = {classes.gridBox}>
+        <Grid container spacing={1} className = {classes.gridBox}>
             <Grid item xs={12}>
                 <TextField
                     name="description"

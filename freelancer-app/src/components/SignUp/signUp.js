@@ -16,19 +16,23 @@ import FreelancerDetailsInputs from './freelancerDetailsInputs';
 
 
 const useStyles = makeStyles((theme) => ({
+    main : {
+        display : 'flex',
+        justifyContent : 'center',
+    },
     paper: {
         marginTop: theme.spacing(14),
         marginBottom: theme.spacing(10),
         width: '40vw',
-        maxHeight: '40vh',
+        maxHeight: '100%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
     },
     form: {
-        height: '40vh',
-        width: '100%',
         marginTop: theme.spacing(3),
+        height: '100%',
+        width: '100%',
     },
     submit: {
         height: '5vh',
@@ -39,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
     },
     buttonsContainer: {
-        flexGrow: 1,
+        flexGrow: 3,
         marginTop: theme.spacing(2),
-        marginLeft: theme.spacing(3)
+        textalign : 'cetner',
     },
     buttonElement: {
         padding: theme.spacing(2),
@@ -114,22 +118,22 @@ export default function SignUp() {
     }
 
     return (
-        <Container component="main" maxWidth="sm">
+        <Container component="main" className = {classes.main}>
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography component="h1" variant="h5">
+                <Typography component="h1"  variant="h5">
                     Join our community!
                  </Typography>
-                <form className={classes.form} onSubmit={onSubmit}>
-                    <FormControl>
+                <form className={classes.formControl} onSubmit={onSubmit}>
+                    <FormControl className = {classes.form}>
 
                         <PersonalDetails
                             handleChange={handleChange}
                             values={inputs}
                         />
-                        <Grid container spacing={3} className={classes.buttonsContainer}>
-                            <Grid item xs={6}>
-                                <Button
+                        <Grid container spacing={2}  className={classes.buttonsContainer}>
+                            <Grid item style={{textAlign: 'center'}}  xs={6}>
+                                <Button 
                                     className={classes.buttonsContainer}
                                     variant='outlined'
                                     color='primary'
@@ -138,7 +142,7 @@ export default function SignUp() {
                                     I'm a customer
                                 </Button>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item style={{textAlign: 'center'}}  xs={6}>
                                 <Button
                                     className={classes.buttonsContainer}
                                     variant='outlined'
