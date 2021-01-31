@@ -1,23 +1,26 @@
+import { makeStyles } from '@material-ui/core/styles';
 import React from "react";
 
-const footerStyle = {
-  backgroundColor: "#BED6FA",
-  color: "white",
-  borderTop: "1px solid #E7E7E7",
-  textAlign: "center",
-  padding: "20px",
-  position: "fixed",
-  left: "0",
-  bottom: "0",
-  height: "30px",
-  width: "100%"
-};
+const useStyles = makeStyles((theme) => ({
+  footer: {
+    backgroundColor: "#BED6FA",
+    color: "white",
+    borderTop: "1px solid #E7E7E7",
+    padding: "20px",
+    position: "fixed",
+    left: "0",
+    bottom: "0",
+    height: "2vh",
+    width: "100vw"
+  }
+}));
 
 
-const Footer = ({ children })  => {
+const Footer = () => {
+  const classes = useStyles();
   return (
 
-    <div style={footerStyle}>{children}</div>
+    <div className={classes.footer}></div>
   );
 }
 

@@ -39,7 +39,7 @@ export default function PersonalDetails(props) {
 
     return (
         <>
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         autoComplete="fname"

@@ -1,12 +1,8 @@
 import React from 'react';
-
-//Design components - material ui
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -16,8 +12,8 @@ import GoogleLogin from 'react-google-login';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(15),
-    width: '30vw',
-    maxHeight: '40vh',
+    width: '100%',
+    maxHeight: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
