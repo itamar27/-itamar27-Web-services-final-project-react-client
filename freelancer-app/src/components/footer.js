@@ -3,7 +3,7 @@ import React from "react";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: "#BED6FA",
+    backgroundColor: "#8CD1F6",
     color: "white",
     borderTop: "1px solid #E7E7E7",
     padding: "20px",

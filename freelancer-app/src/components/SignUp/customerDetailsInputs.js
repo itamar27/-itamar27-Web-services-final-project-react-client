@@ -23,7 +23,7 @@ export default function CustomerDetailsInputs(props) {
                     Please enter your user name on freelancer.com
                 </Typography>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs = {6}>
                 <TextField
                     name="customerUser"
                     variant="outlined"
