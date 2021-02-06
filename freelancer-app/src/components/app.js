@@ -4,15 +4,17 @@ import Footer from './footer';
 import SignIn from './SignUp/signin';
 import FormModal from './FormModal/formModal';
 
+import JobsList from './jobs/jobsList'
+
 const App = (props) => {
 
     return (
         <>
             <NavBar />
-            <SignIn />
+            <JobsList />
             <Footer />
         </>
     )
 }
 
-export default App;
+export default App; 
