@@ -3,7 +3,8 @@ import NavBar from '../components/navbar';
 import Footer from '../components/footer';
 
 import SignIn from '../components/SignUp/signIn';
-import SignUp from '../components/SignUp/signUp'; 
+import SignUp from '../components/SignUp/signUp';
+import Click from '../components/FormModal/tmpButton';
 
 const ReactRouter = () => {
 
@@ -11,8 +12,9 @@ const ReactRouter = () => {
         <>
             <NavBar />
             <Switch>
-                <Route exact path = '/' component = {SignIn} /> 
-                <Route path = "/signup" component  = {SignUp} />
+                <Route exact path='/' component={SignIn} />
+                <Route path="/signup" component={SignUp} />
+                <Route path='/create_map' component={Click} />
             </ Switch>
             <Footer />
 
