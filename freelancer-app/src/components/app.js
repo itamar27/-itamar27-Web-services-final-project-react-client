@@ -4,13 +4,14 @@ import Footer from './footer.js';
 import SignIn from './SignUp/signIn.js';
 
 import JobsList from './jobs/jobsList'
+import PersistentDrawerLeft from './map/sideBar'
 
 const App = (props) => {
 
     return (
         <>
             <NavBar />
-            <JobsList />
+            <PersistentDrawerLeft />
             <Footer />
         </>
     )
