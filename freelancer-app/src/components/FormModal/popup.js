@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTitle, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import React  from 'react';
 import MapForm from './MapForm';
 
 
@@ -15,21 +15,22 @@ const useStyles = makeStyles((theme) => ({
 export default function Popup(props) {
 
     const classes = useStyles()
-    const { title, childern, openPopup, setOpenPopup } = props;
+    const { title, openPopup} = props;
 
+  
     return (
 
-        <Dialog component = 'div' open={openPopup} maxWidth="sm" fullWidth = {true} classes={{ paper: classes.dialogWrapper }}>
+        <Dialog component='div' open={openPopup} maxWidth="sm" fullWidth={true} classes={{ paper: classes.dialogWrapper }}>
             <DialogTitle>
-                <div styles = {{display : 'flex', flexDirection:'row' }}>
-                    <Typography variant='h6' component = 'div'>
-                    {title}
+                <div styles={{ display: 'flex', flexDirection: 'row' }}>
+                    <Typography variant='h6' component='div'>
+                        {title}
                     </Typography>
-                  
+
                 </div>
             </DialogTitle>
             <DialogContent dividers>
-                <MapForm />
+                <MapForm    />
             </DialogContent>
 
         </Dialog>

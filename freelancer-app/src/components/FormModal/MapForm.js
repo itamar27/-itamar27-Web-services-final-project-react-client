@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import { Grid, TextField, Typography, Button } from '@material-ui/core';
@@ -6,9 +6,6 @@ import AddIcon from '@material-ui/icons/Add';
 
 
 import Goal from './Goal';
-
-
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,13 +39,16 @@ export default function MapForm(props) {
 
 
   const classes = useStyles();
+
   const [values, setValues] = useState({
     description: '',
     projectName: '',
     deadline: '',
-    goals: 0
+    goalsCount: 0
   });
-  const [goal, setGoal] = useState([{
+
+
+  const [goals, setGoals] = useState([{
     id: 0,
     phase: "",
     name: '',
@@ -56,30 +56,82 @@ export default function MapForm(props) {
     description: ''
   }])
 
-  const addGoal = () => {
-    console.log(values.goals)
-    let counter = values.goals
-    counter++
-    setValues({ ...values,goals : counter   })
+  const addGoal = (event) => {
+    event.preventDefault();
+    let counter = values.goalsCount;
+    counter++;
+
+    setGoals([...goals, {
+      id: counter,
+      phase: "",
+      name: '',
+      meaningful: false,
+      description: ''
+    }]);
+
+    setValues({ ...values, goalsCount: counter })
 
   }
+
   const deleteGoal = (event, id) => {
-      event.preventDefault();
+    event.preventDefault();
 
-    console.log(values.goals)
-    let counter = values.goals
-    counter--
-
-    if(counter > 0)
-      setValues({...values, goals : counter})
+    let counter = values.goalsCount;
+    if (counter > 0) {
+      counter--;
+      setValues({ ...values, goalsCount: counter })
+      setGoals(goals.filter(goal => goal.id !== id))
+    }
   }
+
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log(values);
+    console.log(goals);
+  }
+
+  const handleChange = event => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  }
+
+  const goalHandleChange = (e, index) => {
+
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setGoals(goals.map(goal => {
+
+      if (goal.id === index) {
+        if (name !== 'meaningful')
+          goal[name] = value
+        else {
+          let bool = goal[name];
+          goal[name] = !bool;
+        }
+      }
+
+      return goal;
+    }))
+
+  }
+
+  const forEachGoal = (goal, id) => {
+
+    return (
+      <Goal deleteGoal={deleteGoal} handleChange={goalHandleChange} key={id} values={goal} />
+    )
+  }
+
+
 
 
   return (
 
     <form>
       <FormControl>
-        <Grid Container className={classes.gridBox}>
+        <Grid container className={classes.gridBox}>
           <Grid item xs={12} >
             <TextField
 
@@ -91,6 +143,8 @@ export default function MapForm(props) {
               rows={3}
               rowsMax={5}
               fullWidth
+              value={values.description}
+              onChange={handleChange}
               id="description"
               label="description"
               autoFocus
@@ -109,12 +163,14 @@ export default function MapForm(props) {
               id="projectName"
               label="project name"
               size="small"
+              value={values.projectName}
+              onChange={handleChange}
               autoFocus
             />
           </Grid>
           <Grid item style={{ textAlign: 'center' }} xs={6}>
             <TextField
-              name="Deadline"
+              name="deadline"
               variant="outlined"
               required
               id="deadline"
@@ -126,6 +182,8 @@ export default function MapForm(props) {
               InputLabelProps={{
                 shrink: true,
               }}
+              value={values.deadline}
+              onChange={handleChange}
 
             />
           </Grid>
@@ -142,17 +200,19 @@ export default function MapForm(props) {
               variant="contained"
               className={classes.button}
               startIcon={<AddIcon />}
-              onClick = {addGoal}
+              onClick={addGoal}
             >
               Add
           </Button>
           </Grid>
+          <Grid item xs={12}>
+            {goals.map(forEachGoal)}
 
-          <Grid item xs={12}  >
-            <Goal deleteGoal = {deleteGoal} values={goal} />
           </Grid>
 
+
         </Grid>
+
         <Grid container justify="center" >
 
           <Button
@@ -160,7 +220,7 @@ export default function MapForm(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-          // onClick={onSubmit}
+            onClick={onSubmit}
           >
             Submit
         </Button>

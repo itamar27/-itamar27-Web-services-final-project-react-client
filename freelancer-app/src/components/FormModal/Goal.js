@@ -34,9 +34,16 @@ export default function Goal(props) {
     const classes = useStyles();
 
 
+
+    const onDelete = (event) => {
+        props.deleteGoal(event, props.values.id);
+    }
+
+    
+
     return (
-        <div>
-            <FormGroup id={props.values.id} >
+        <div id={props.values.id}>
+            <FormGroup >
                 <Box border={1} borderRadius="borderRadius" borderColor="rgb(0,0,0,0.2)" className={classes.box}>
 
                     <Grid container spacing={3} className={classes.root}>
@@ -46,8 +53,10 @@ export default function Goal(props) {
                                 name="phase"
                                 variant="outlined"
                                 id="phase"
-                                label="phase"
+                                label="Phase"
                                 size="small"
+                                defaultValue={props.values.phase}
+                                onChange={(e) => props.handleChange(e, props.values.id)}
                                 required
                                 autoFocus
                             />
@@ -55,12 +64,14 @@ export default function Goal(props) {
 
                         <Grid item xs={5} className={classes.input}>
                             <TextField
-                                autoComplete="projectName"
-                                name="projectName"
+                                autoComplete="name"
+                                name="name"
                                 variant="outlined"
-                                id="projectNamee"
-                                label="project name"
+                                id="name"
+                                label="Goal name"
                                 size="small"
+                                defaultValue={props.values.name}
+                                onChange={(e) => props.handleChange(e, props.values.id)}
                                 required
                                 autoFocus
                             />
@@ -68,10 +79,12 @@ export default function Goal(props) {
                         <Grid item xs={1} className={classes.input}>
                             <FormControlLabel
                                 value="top"
+                                name = 'meaningful'
                                 control={<Checkbox
-                                    color="primary"
-                                    icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
-                                    checkedIcon={<CheckBoxIcon fontSize="small" />}
+                                color="primary"
+                                icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                                checkedIcon={<CheckBoxIcon fontSize="small" />}
+                                onChange = {e => props.handleChange(e, props.values.id)}
                                 />}
                                 label={<div style={{ fontSize: '0.7rem' }}>Meaningful?</div>}
                             />
@@ -90,6 +103,8 @@ export default function Goal(props) {
                                 fullWidth
                                 id="description"
                                 label="description"
+                                defaultValue={props.values.description}
+                                onChange={(e) => props.handleChange(e, props.values.id)}
                                 autoFocus
                             />
                         </Grid>
@@ -100,7 +115,7 @@ export default function Goal(props) {
                             disableFocusRipple
                             disableRipple
                             style={{ backgroundColor: "transparent" }}
-                            onClick = {console.log('clicked!')}
+                            onClick={onDelete}
                         >
                             <DeleteIcon fontSize="small" />
                         </IconButton>

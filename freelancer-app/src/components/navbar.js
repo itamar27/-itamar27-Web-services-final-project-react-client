@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme) => ({
     navStyles: {
-        backgroundColor: "#609EFA",
+        backgroundColor: "#B3E3F8",
         text: 'bold',
     },
     linkStyle : {
