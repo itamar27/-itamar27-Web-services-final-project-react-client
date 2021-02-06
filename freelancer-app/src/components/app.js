@@ -1,17 +1,19 @@
 // import React, { useState, useEffect } from 'react';
 import NavBar from './navbar.js';
 import Footer from './footer.js';
-import SignIn from './SignUp/signin.js';
+import SignIn from './SignUp/signIn.js';
+
+import JobsList from './jobs/jobsList'
 
 const App = (props) => {
 
     return (
         <>
             <NavBar />
-            <SignIn />
+            <JobsList />
             <Footer />
         </>
     )
 }
 
-export default App;
+export default App; 
