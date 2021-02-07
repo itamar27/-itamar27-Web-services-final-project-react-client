@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -26,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     height: '5vh',
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#609EFA',
+    backgroundColor: '#85BEF9',
+    "&:hover": {
+      backgroundColor: "#3d96f5",
+    },
   },
   google: {
     height: '7vh',
@@ -35,12 +41,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const responseGoogle = () => {
-  console.log('Google connect!');
-}
+
 
 export default function SignIn() {
+
   const classes = useStyles();
+
+  const history = useHistory();
+
+  const googleSuccess = async (response) => {
+
+
+    const tmp = {
+      token: response.tokenId
+    }
+
+    axios.post('http://localhost:3000/auth/login', tmp, { withCredentials: true, credentials: 'include' })
+      .then(res => {
+        const data = {
+          name: 'itamar',
+          email: 'itamary9@gmail.com',
+        }
+        history.push({
+          pathname: "/signup",
+          state: data,
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  const googleFailure = (response) => {
+    console.log(response);
+  }
+
 
   return (
 
@@ -54,8 +87,8 @@ export default function SignIn() {
           <GoogleLogin
             className={classes.google}
             clientId="862545460693-9fe0uqlq4u6pug9ineb575slh98uhare.apps.googleusercontent.com"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
           />
           <TextField
             variant="outlined"
