@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { URL } from '../../constants';
+
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
@@ -62,17 +65,11 @@ export default function SignUp(match) {
 
     const { id, first_name, last_name, email } = useLocation().state;
 
-    console.log(id, first_name, last_name, email);  
     const [clicked, setCLicked] = useState(0);
     const [inputs, setInputs] = useState({
         firstName: first_name,
         lastName: last_name,
         email: email,
-        country: "",
-        city: "",
-        streetNumber: "",
-        appt: "",
-        phone: "",
         facebook: "",
         instgram: "",
         linkedin: "",
@@ -99,12 +96,13 @@ export default function SignUp(match) {
     }
 
     const onSubmit = event => {
+
         event.preventDefault();
-        const filled = false;
+        let filled = false;
         let pack = inputs;
 
         if (customer !== "") {
-            pack = { ...pack, customer: customer };
+            pack.customer = customer;
             filled = true;
         }
         if (freelancer.programming !== "") {
@@ -112,12 +110,10 @@ export default function SignUp(match) {
             filled = true;
         }
         if (filled) {
-            if (id === undefined) {
-                console.log(`i'm a pack for post! : ${pack}`);
-            }
-            else {
-                console.log(`im a pack for put: `, pack);
-            }
+            console.log(pack);
+            axios.post(URL + `auth/signup`, pack).
+            then(response => {console.log(response);})
+            
         }
         else
             console.log(`please fill up the entire form`);

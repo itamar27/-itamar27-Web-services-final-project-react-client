@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import GoogleLogin from 'react-google-login';
 
+import {URL} from '../../constants';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(15),
@@ -55,7 +57,7 @@ export default function SignIn() {
       token: response.tokenId
     }
 
-    axios.post('http://localhost:3000/auth/login', tmp, { withCredentials: true, credentials: 'include' })
+    axios.post(URL+`auth/login`, tmp, { withCredentials: true, credentials: 'include' })
       .then(res => {
 
         const user = res.data.user;
