@@ -70,51 +70,6 @@ export default function PersonalDetails(props) {
                     <TextField
                         variant="outlined"
                         fullWidth
-                        id="country"
-                        label="country"
-                        name="country"
-                        autoComplete="lname"
-                        onChange={props.handleChange('country')}
-                        defaultValue={country}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="city"
-                        label="city"
-                        name="city"
-                        onChange={props.handleChange('city')}
-                        defaultValue={city}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="streetNumber"
-                        label="street number"
-                        name="streetNumber"
-                        onChange={props.handleChange('streetNumber')}
-                        defaultValue={streetNumber}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="appt"
-                        label="appt"
-                        name="appt"
-                        onChange={props.handleChange('appt')}
-                        defaultValue={appt}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
                         id="facebook"
                         label="facebook"
                         name="facebook"

@@ -4,7 +4,7 @@ import Footer from '../components/footer';
 
 import SignIn from '../components/SignUp/signIn';
 import SignUp from '../components/SignUp/signUp';
-import Click from '../components/FormModal/tmpButton';
+import JobsList from '../components/jobs/jobsList';
 
 const ReactRouter = () => {
 
@@ -14,7 +14,7 @@ const ReactRouter = () => {
             <Switch>
                 <Route exact path='/' component={SignIn} />
                 <Route path="/signup" component={SignUp} />
-                <Route path='/create_map' component={Click} />
+                <Route exact path="/user/:name/:id" component={JobsList} />
             </ Switch>
             <Footer />
 

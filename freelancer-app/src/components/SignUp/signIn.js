@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import GoogleLogin from 'react-google-login';
 
+import {URL} from '../../constants';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(15),
@@ -51,19 +53,23 @@ export default function SignIn() {
 
   const googleSuccess = async (response) => {
 
-
     const tmp = {
       token: response.tokenId
     }
 
-    axios.post('http://localhost:3000/auth/login', tmp, { withCredentials: true, credentials: 'include' })
+    axios.post(URL+`auth/login`, tmp, { withCredentials: true, credentials: 'include' })
       .then(res => {
-        const data = {
-          name: 'itamar',
-          email: 'itamary9@gmail.com',
+
+        const user = res.data.user;
+        const url = res.data.url;
+        const data  = {
+          id : user.id,
+          email : user.email,
+          first_name : user.first_name,
+          last_name : user.last_name,
         }
         history.push({
-          pathname: "/signup",
+          pathname: `${url}`,
           state: data,
         })
       })
