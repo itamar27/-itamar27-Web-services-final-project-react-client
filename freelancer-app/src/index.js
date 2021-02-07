@@ -9,10 +9,10 @@ import App from './components/app';
 ReactDOM.render(
   <React.StrictMode>
 
-    <App />
-    {/* <Router>
-      <ReactRouter />
-    </Router> */}
+    {/* <App /> */}
+      <Router>
+       <ReactRouter />
+      </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
