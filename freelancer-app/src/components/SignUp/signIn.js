@@ -1,6 +1,7 @@
 import axios from 'axios';
+import {useContext} from 'react';
+import {UserContext} from '../../userContext';
 import { useHistory } from 'react-router-dom';
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -47,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
 
+  const {setUser} = useContext(UserContext);
+
   const classes = useStyles();
 
   const history = useHistory();
@@ -67,7 +70,11 @@ export default function SignIn() {
           email : user.email,
           first_name : user.first_name,
           last_name : user.last_name,
-        }
+        };
+
+        if(res.data.role)
+          setUser(data);
+          
         history.push({
           pathname: `${url}`,
           state: data,
