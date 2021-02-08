@@ -20,7 +20,8 @@ const Footer = () => {
   const classes = useStyles();
   return (
 
-    <div className={classes.footer}></div>
+    <div className={classes.footer}>
+    </div>
   );
 }
 

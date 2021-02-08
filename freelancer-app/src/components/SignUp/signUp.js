@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import { URL } from '../../constants';
+import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
-// import Link from '@material-ui/core/Link';
-// import Divider from '@material-ui/core/Divider';
 
 import PersonalDetails from './personalDetails';
 import CustomerDetailsInputs from './customerDetailsInputs';
 import FreelancerDetailsInputs from './freelancerDetailsInputs';
 
+import { UserContext } from '../../userContext';
+
+
 
 const useStyles = makeStyles((theme) => ({
-    main : {
-        display : 'flex',
-        justifyContent : 'center',
+    main: {
+        display: 'flex',
+        justifyContent: 'center',
     },
     paper: {
         marginTop: theme.spacing(14),
@@ -38,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
         height: '5vh',
         margin: theme.spacing(3, 0, 2),
         backgroundColor: '#609EFA',
+        "&:hover": {
+            backgroundColor: '#3986f9',
+        },
     },
     divider: {
         marginTop: theme.spacing(3),
@@ -45,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     buttonsContainer: {
         flexGrow: 3,
         marginTop: theme.spacing(2),
-        textalign : 'cetner',
+        textalign: 'cetner',
     },
     buttonElement: {
         padding: theme.spacing(2),
@@ -55,19 +62,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SignUp() {
+export default function SignUp(match) {
     const classes = useStyles();
 
+    const history = useHistory();
+    const { setUser } = useContext(UserContext);
+
+    const { id, first_name, last_name, email } = useLocation().state || {};
 
     const [clicked, setCLicked] = useState(0);
     const [inputs, setInputs] = useState({
-        firstName: "",
-        lastName: "",
-        country: "",
-        city: "",
-        streetNumber: "",
-        appt: "",
-        phone: "",
+        firstName: first_name,
+        lastName: last_name,
+        email: email,
         facebook: "",
         instgram: "",
         linkedin: "",
@@ -75,10 +82,10 @@ export default function SignUp() {
 
     const [customer, setCustomer] = useState("");
     const [freelancer, setFreelancer] = useState({
-             description: "",
-             workExperience : "",
-             programming: "",
-             workField : "" 
+        description: "",
+        workExperience: "",
+        programming: "",
+        workField: ""
     })
 
 
@@ -94,15 +101,37 @@ export default function SignUp() {
     }
 
     const onSubmit = event => {
-        event.preventDefault();
 
-        console.log('hello');
-        let pack =  inputs;
-        if(customer !== "" )
-            pack = {...pack, customer : customer};
-        if(freelancer.programming !== "")
+        event.preventDefault();
+        let filled = false;
+        let pack = inputs;
+
+        if (customer !== "") {
+            pack.freelancer_api_name = customer;
+            filled = true;
+        }
+        if (freelancer.programming !== "") {
             pack['freelancer'] = freelancer
-        console.log(pack);
+            filled = true;
+        }
+        if (filled) {
+            console.log(pack);
+
+            axios.post(URL + `auth/signup`, pack)
+                .then(response => {
+                    setUser(response.data);
+                    history.push({
+                        pathname: `/user/${response.data.first_name}_${response.data.last_name}`,
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    setUser(null);
+                });
+
+        }
+        else
+            console.log(`please fill up the entire form`);
     }
 
     const renderUserInputs = choice => {
@@ -118,22 +147,22 @@ export default function SignUp() {
     }
 
     return (
-        <Container component="main" className = {classes.main}>
+        <Container component="main" className={classes.main}>
             <CssBaseline />
             <div className={classes.paper}>
-                <Typography component="h1"  variant="h5">
+                <Typography component="h1" variant="h5">
                     Join our community!
                  </Typography>
                 <form className={classes.formControl} onSubmit={onSubmit}>
-                    <FormControl className = {classes.form}>
+                    <FormControl className={classes.form}>
 
                         <PersonalDetails
                             handleChange={handleChange}
                             values={inputs}
                         />
-                        <Grid container spacing={2}  className={classes.buttonsContainer}>
-                            <Grid item style={{textAlign: 'center'}}  xs={6}>
-                                <Button 
+                        <Grid container spacing={2} className={classes.buttonsContainer}>
+                            <Grid item style={{ textAlign: 'center' }} xs={6}>
+                                <Button
                                     className={classes.buttonsContainer}
                                     variant='outlined'
                                     color='primary'
@@ -142,7 +171,7 @@ export default function SignUp() {
                                     I'm a customer
                                 </Button>
                             </Grid>
-                            <Grid item style={{textAlign: 'center'}}  xs={6}>
+                            <Grid item style={{ textAlign: 'center' }} xs={6}>
                                 <Button
                                     className={classes.buttonsContainer}
                                     variant='outlined'

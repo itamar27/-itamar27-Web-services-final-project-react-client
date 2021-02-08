@@ -1,3 +1,7 @@
+import axios from 'axios';
+import {useContext} from 'react';
+import {UserContext} from '../../userContext';
+import { useHistory } from 'react-router-dom';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import GoogleLogin from 'react-google-login';
+
+import {URL} from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,7 +32,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     height: '5vh',
     margin: theme.spacing(3, 0, 2),
-    backgroundColor: '#609EFA',
+    backgroundColor: '#85BEF9',
+    "&:hover": {
+      backgroundColor: "#3d96f5",
+    },
   },
   google: {
     height: '7vh',
@@ -35,12 +44,49 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const responseGoogle = () => {
-  console.log('Google connect!');
-}
+
 
 export default function SignIn() {
+
+  const {setUser} = useContext(UserContext);
+
   const classes = useStyles();
+
+  const history = useHistory();
+
+  const googleSuccess = async (response) => {
+
+    const tmp = {
+      token: response.tokenId
+    }
+
+    axios.post(URL+`auth/login`, tmp, { withCredentials: true, credentials: 'include' })
+      .then(res => {
+
+        const user = res.data.user;
+        const url = res.data.url;
+        const data  = {
+          id : user.id,
+          email : user.email,
+          first_name : user.first_name,
+          last_name : user.last_name,
+        };
+
+        if(res.data.role)
+          setUser(data);
+          
+        history.push({
+          pathname: `${url}`,
+          state: data,
+        })
+      })
+      .catch(err => console.log(err))
+  }
+
+  const googleFailure = (response) => {
+    console.log(response);
+  }
+
 
   return (
 
@@ -54,8 +100,8 @@ export default function SignIn() {
           <GoogleLogin
             className={classes.google}
             clientId="862545460693-9fe0uqlq4u6pug9ineb575slh98uhare.apps.googleusercontent.com"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onSuccess={googleSuccess}
+            onFailure={googleFailure}
           />
           <TextField
             variant="outlined"

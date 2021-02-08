@@ -11,6 +11,7 @@ import Map from './map/map'
 import RightDrawer from './map/sideBar'
 
 import Goal from './map/goal'
+import SignIn from './SignUp/signIn';
 
 const App = (props) => {
 

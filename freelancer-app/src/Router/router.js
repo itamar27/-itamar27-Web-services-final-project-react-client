@@ -1,25 +1,19 @@
 import { Route, Switch } from 'react-router-dom';
-import NavBar from '../components/navbar';
-import Footer from '../components/footer';
 
 import SignIn from '../components/SignUp/signIn';
 import SignUp from '../components/SignUp/signUp';
-import Click from '../components/FormModal/tmpButton';
+import JobsList from '../components/jobs/jobsList';
 
-const ReactRouter = () => {
+export default function ReactRouter(props) {
 
     return (
         <>
-            <NavBar />
             <Switch>
                 <Route exact path='/' component={SignIn} />
                 <Route path="/signup" component={SignUp} />
-                <Route path='/create_map' component={Click} />
+                <Route exact path="/user/:name" component={JobsList} />
             </ Switch>
-            <Footer />
-
         </>
     )
 }
 
-export default ReactRouter;

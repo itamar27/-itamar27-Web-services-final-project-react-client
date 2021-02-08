@@ -1,7 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 import Divider from '@material-ui/core/Divider';
 
@@ -65,51 +64,6 @@ export default function PersonalDetails(props) {
                         autoComplete="lname"
                         onChange={props.handleChange('lastName')}
                         defaultValue={lastName}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="country"
-                        label="country"
-                        name="country"
-                        autoComplete="lname"
-                        onChange={props.handleChange('country')}
-                        defaultValue={country}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={4}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="city"
-                        label="city"
-                        name="city"
-                        onChange={props.handleChange('city')}
-                        defaultValue={city}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="streetNumber"
-                        label="street number"
-                        name="streetNumber"
-                        onChange={props.handleChange('streetNumber')}
-                        defaultValue={streetNumber}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={2}>
-                    <TextField
-                        variant="outlined"
-                        fullWidth
-                        id="appt"
-                        label="appt"
-                        name="appt"
-                        onChange={props.handleChange('appt')}
-                        defaultValue={appt}
                     />
                 </Grid>
                 <Grid item xs={12} sm={4}>
