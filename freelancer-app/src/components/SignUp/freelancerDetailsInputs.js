@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop : theme.spacing(2),
     }
 }));
+
 export default function FreelancerDetailsInputs(props) {
 
     const classes = useStyles();

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { URL } from '../../constants';
-
-import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,10 +11,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
 
-
 import PersonalDetails from './personalDetails';
 import CustomerDetailsInputs from './customerDetailsInputs';
 import FreelancerDetailsInputs from './freelancerDetailsInputs';
+
+import { UserContext } from '../../userContext';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -63,7 +65,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp(match) {
     const classes = useStyles();
 
-    const { id, first_name, last_name, email } = useLocation().state;
+    const history = useHistory();
+    const { setUser } = useContext(UserContext);
+
+    const { id, first_name, last_name, email } = useLocation().state || {};
 
     const [clicked, setCLicked] = useState(0);
     const [inputs, setInputs] = useState({
@@ -102,7 +107,7 @@ export default function SignUp(match) {
         let pack = inputs;
 
         if (customer !== "") {
-            pack.customer = customer;
+            pack.freelancer_api_name = customer;
             filled = true;
         }
         if (freelancer.programming !== "") {
@@ -111,9 +116,19 @@ export default function SignUp(match) {
         }
         if (filled) {
             console.log(pack);
-            axios.post(URL + `auth/signup`, pack).
-            then(response => {console.log(response);})
-            
+
+            axios.post(URL + `auth/signup`, pack)
+                .then(response => {
+                    setUser(response.data);
+                    history.push({
+                        pathname: `/user/${response.data.first_name}_${response.data.last_name}`,
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    setUser(null);
+                });
+
         }
         else
             console.log(`please fill up the entire form`);
