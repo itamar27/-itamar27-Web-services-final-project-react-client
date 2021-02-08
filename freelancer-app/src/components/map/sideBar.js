@@ -1,45 +1,26 @@
-// import { makeStyles } from '@material-ui/core/styles';
-// import React from "react";
-// import SimpleBar from 'simplebar-react';
-// import 'simplebar/dist/simplebar.min.css';
-// import Drawer from 'rc-drawer';
-
-
-// const useStyles = makeStyles({
-
-// });
-
-
-// export default function Job(props) {
-//     const classes = useStyles();
-//     return (
-
-//     )
-// }
-
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 
 
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import Job from '../jobs/job'
+import EditGoal from './editGoal'
+
+import Chat from './chat/chat'
 
 
-const drawerWidth = '30vw';
+const drawerWidth = '20vw';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     root: {
         display: 'flex',
     },
     menuButton: {
         position: 'absolute',
         top: 100,
-        right: 100
+        right: 50
     },
     hide: {
         display: 'none',
@@ -50,18 +31,19 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
+
     },
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
+        marginTop: '10vh'
     },
 
-}));
+});
 
-export default function PersistentDrawerLeft() {
+export default function SideBar() {
     const classes = useStyles();
-    const theme = useTheme();
     const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
@@ -72,31 +54,37 @@ export default function PersistentDrawerLeft() {
         setOpen(false);
     };
 
+    const handleNewUserMessage = (newMessage) => {
+        console.log(`New message incoming! ${newMessage}`);
+        // Now send the message throught the backend API
+    };
+
     return (
         <div className={ classes.root }>
             <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 onClick={ handleDrawerOpen }
-                edge="start"
-                className={ clsx(classes.menuButton, open && classes.hide) }
+                edge="end"
+                className={ classes.menuButton }
             >
                 <MenuIcon />
             </IconButton>
             <Drawer
                 className={ classes.drawer }
                 variant="persistent"
-                anchor="left"
+                anchor="right"
                 open={ open }
                 classes={ {
                     paper: classes.drawerPaper,
                 } }>
                 <div className={ classes.drawerHeader }>
                     <IconButton onClick={ handleDrawerClose }>
-                        { theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
+                        <ChevronRightIcon />
                     </IconButton>
                 </div>
-                <Job />
+                <EditGoal />
+                <Chat />
 
             </Drawer>
         </div>

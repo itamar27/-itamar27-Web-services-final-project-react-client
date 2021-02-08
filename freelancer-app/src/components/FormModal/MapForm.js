@@ -120,7 +120,7 @@ export default function MapForm(props) {
   const forEachGoal = (goal, id) => {
 
     return (
-      <Goal deleteGoal={deleteGoal} handleChange={goalHandleChange} key={id} values={goal} />
+      <Goal deleteGoal={ deleteGoal } handleChange={ goalHandleChange } key={ id } values={ goal } />
     )
   }
 
@@ -131,8 +131,8 @@ export default function MapForm(props) {
 
     <form>
       <FormControl>
-        <Grid container className={classes.gridBox}>
-          <Grid item xs={12} >
+        <Grid container className={ classes.gridBox }>
+          <Grid item xs={ 12 } >
             <TextField
 
               autoComplete="description"
@@ -140,11 +140,11 @@ export default function MapForm(props) {
               variant="outlined"
               required
               multiline
-              rows={3}
-              rowsMax={5}
+              rows={ 3 }
+              rowsMax={ 5 }
               fullWidth
-              value={values.description}
-              onChange={handleChange}
+              value={ values.description }
+              onChange={ handleChange }
               id="description"
               label="description"
               autoFocus
@@ -152,9 +152,9 @@ export default function MapForm(props) {
           </Grid>
         </Grid>
 
-        <Grid container spacing={2} className={classes.inputsContainer}>
+        <Grid container spacing={ 2 } className={ classes.inputsContainer }>
 
-          <Grid item style={{ textAlign: 'center' }} xs={6}>
+          <Grid item style={ { textAlign: 'center' } } xs={ 6 }>
             <TextField
               autoComplete="projectName"
               name="projectName"
@@ -163,12 +163,12 @@ export default function MapForm(props) {
               id="projectName"
               label="project name"
               size="small"
-              value={values.projectName}
-              onChange={handleChange}
+              value={ values.projectName }
+              onChange={ handleChange }
               autoFocus
             />
           </Grid>
-          <Grid item style={{ textAlign: 'center' }} xs={6}>
+          <Grid item style={ { textAlign: 'center' } } xs={ 6 }>
             <TextField
               name="deadline"
               variant="outlined"
@@ -178,35 +178,35 @@ export default function MapForm(props) {
               size="small"
               autoFocus
               type="date"
-              className={classes.textField}
-              InputLabelProps={{
+              className={ classes.textField }
+              InputLabelProps={ {
                 shrink: true,
-              }}
-              value={values.deadline}
-              onChange={handleChange}
+              } }
+              value={ values.deadline }
+              onChange={ handleChange }
 
             />
           </Grid>
         </Grid>
 
-        <Grid container spacing={3} className={classes.inputsContainer}>
-          <Grid item xs={2} >
+        <Grid container spacing={ 3 } className={ classes.inputsContainer }>
+          <Grid item xs={ 2 } >
             <Typography variant="h6" component="h2" gutterBottom>
               Goals
           </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={ 2 }>
             <Button
               variant="contained"
-              className={classes.button}
-              startIcon={<AddIcon />}
-              onClick={addGoal}
+              className={ classes.button }
+              startIcon={ <AddIcon /> }
+              onClick={ addGoal }
             >
               Add
           </Button>
           </Grid>
-          <Grid item xs={12}>
-            {goals.map(forEachGoal)}
+          <Grid item xs={ 12 }>
+            { goals.map(forEachGoal) }
 
           </Grid>
 
@@ -219,8 +219,8 @@ export default function MapForm(props) {
             type="submit"
             variant="contained"
             color="primary"
-            className={classes.submit}
-            onClick={onSubmit}
+            className={ classes.submit }
+            onClick={ onSubmit }
           >
             Submit
         </Button>
