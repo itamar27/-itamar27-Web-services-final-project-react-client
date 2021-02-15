@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {useContext} from 'react';
-import {UserContext} from '../../userContext';
+import { useContext } from 'react';
+import { UserContext } from '../../userContext';
 import { useHistory } from 'react-router-dom';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import GoogleLogin from 'react-google-login';
 
-import {URL} from '../../constants';
+import { URL } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
 
-  const {setUser} = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const classes = useStyles();
 
@@ -60,21 +60,22 @@ export default function SignIn() {
       token: response.tokenId
     }
 
-    axios.post(URL+`auth/login`, tmp, { withCredentials: true, credentials: 'include' })
+    axios.post(URL + `auth/login`, tmp, { withCredentials: true, credentials: 'include' })
       .then(res => {
 
         const user = res.data.user;
         const url = res.data.url;
-        const data  = {
-          id : user.id,
-          email : user.email,
-          first_name : user.first_name,
-          last_name : user.last_name,
+        const data = {
+          id: user.id,
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
         };
 
-        if(res.data.role)
+        console.log(res.data);
+        if (res.data.user)
           setUser(data);
-          
+
         history.push({
           pathname: `${url}`,
           state: data,
@@ -92,16 +93,16 @@ export default function SignIn() {
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={ classes.paper }>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={ classes.form } noValidate>
           <GoogleLogin
-            className={classes.google}
+            className={ classes.google }
             clientId="862545460693-9fe0uqlq4u6pug9ineb575slh98uhare.apps.googleusercontent.com"
-            onSuccess={googleSuccess}
-            onFailure={googleFailure}
+            onSuccess={ googleSuccess }
+            onFailure={ googleFailure }
           />
           <TextField
             variant="outlined"
@@ -130,14 +131,14 @@ export default function SignIn() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className={ classes.submit }
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item>
               <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+                { "Don't have an account? Sign Up" }
               </Link>
             </Grid>
           </Grid>

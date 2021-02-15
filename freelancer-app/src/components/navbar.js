@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import {UserContext} from '.././userContext';
+import { UserContext } from '.././userContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
     const classes = useStyles();
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -44,15 +44,15 @@ const NavBar = (props) => {
     };
 
     return (
-        <div className={classes.root}>
-            <AppBar position="static" className={classes.root}>
+        <div className={ classes.root }>
+            <AppBar position="static" className={ classes.root }>
                 <Toolbar>
 
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography variant="h6" className={ classes.title }>
 
-                        <Link to='/' className={classes.icon}>Workflows</Link>
+                        <Link to='/' className={ classes.icon }>Workflows</Link>
                     </Typography>
-                    {user && (
+                    {/* {user && (
                         <div>
                             <IconButton
                                 aria-label="account of current user"
@@ -82,7 +82,7 @@ const NavBar = (props) => {
                                 <MenuItem onClick={handleClose}><Link to='/' >Logout</Link></MenuItem>
                             </Menu>
                         </div>
-                    )}
+                    )} */}
                 </Toolbar>
             </AppBar>
         </div>
