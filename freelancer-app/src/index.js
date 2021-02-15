@@ -8,9 +8,9 @@ import MainApp from './components/mainApp';
 ReactDOM.render(
   <React.StrictMode>
 
-      <Router>
-       <MainApp />
-      </Router>
+    <Router>
+      <MainApp />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
