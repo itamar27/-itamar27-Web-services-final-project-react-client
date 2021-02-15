@@ -25,11 +25,14 @@ export default function JobsList(props) {
         return (
             <Job
                 key={ i }
+                id = {job.project_id}
                 title={ job.title }
                 description={ job.description }
-                comments={ job.comments }
+                comments={ job.comment }
                 price={ job.price }
-                freelancer={ true }
+                role={ props.user.role }
+                editComment = {props.editComment}
+                saveComment = {props.saveComment}
             />
         )
     }
