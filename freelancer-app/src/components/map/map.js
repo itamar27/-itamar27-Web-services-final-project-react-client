@@ -6,8 +6,6 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Phase from './phase'
 
-import { Line } from 'rc-progress';
-import Goal from './goal'
 
 import SideBar from './sideBar'
 
