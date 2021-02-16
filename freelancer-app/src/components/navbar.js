@@ -52,7 +52,7 @@ const NavBar = (props) => {
 
                         <Link to='/' className={ classes.icon }>Workflows</Link>
                     </Typography>
-                    {/* {user && (
+                    {user && (
                         <div>
                             <IconButton
                                 aria-label="account of current user"
@@ -82,7 +82,7 @@ const NavBar = (props) => {
                                 <MenuItem onClick={handleClose}><Link to='/' >Logout</Link></MenuItem>
                             </Menu>
                         </div>
-                    )} */}
+                    )}
                 </Toolbar>
             </AppBar>
         </div>

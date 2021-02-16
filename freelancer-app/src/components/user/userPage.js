@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { URL } from '../../constants';
 import React, { useState, useContext, useEffect } from "react";
 import Paper from '@material-ui/core/Paper';
 import { UserContext } from '../../userContext';
@@ -13,15 +14,21 @@ const useStyles = makeStyles({
         width: '100%',
         boxShadow: 'none',
     },
+    title: {
+        fontFamily: 'Roboto',
+        fontWeight: '500',
+        color: '#3b1687',
+
+    },
 
 
 });
 
 
 export default function UserPage(props) {
-    const [jobOffers, setJobOffers] = useState(null)
-    const [activeJobs, setActiveJobs] = useState(null)
-    const { user, setUser } = useContext(UserContext)
+    const [jobOffers, setJobOffers] = useState(null);
+    const [activeJobs, setActiveJobs] = useState(null);
+    const { user, setUser } = useContext(UserContext);
 
     const classes = useStyles();
 
@@ -36,21 +43,46 @@ export default function UserPage(props) {
         //         console.log("ERROR WITH GET ACTIVE JOBS")
         //     })
 
+        getJobOffers();
+    }, []);
+
+    const getJobOffers = () => {
         axios.get(`http://localhost:3000/api/freelancerApi/projects/user`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 setJobOffers(response.data)
-                console.log(response.data);
             })
             .catch((err) => {
                 console.log(err)
             })
 
-    }, []);
+    }
+    
+    const handleCommentChange = (event, id) => {
 
+        const index = jobOffers.findIndex(offer => offer.project_id === id);
+        let newJobOffers = [...jobOffers];
+        newJobOffers[index]['comment'] = event.target.value;
+        setJobOffers(newJobOffers);
+    }
+
+    const saveComment = (id, value) => {
+
+        console.log(id, value);
+        axios.put(URL + `api/comments/${id}`, { comment: value }, { withCredentials: true, credentials: 'include' })
+            .then(response => {
+                console.log(response);
+                console.log('here');
+            })
+            .catch(err => {
+                console.log('not here');
+                console.log(err);
+            });
+    }
 
     return (
-        <Paper className={ classes.container }>
-            { jobOffers ? <JobList jobs={ jobOffers } /> : null }
+        <Paper className={classes.container}>
+            <h1 className={classes.title}>{user.first_name} welcome back!</h1>
+            { jobOffers ? <JobList jobs={jobOffers} editComment={handleCommentChange} saveComment={saveComment} user={user} /> : null}
         </Paper >
     )
 }

@@ -120,14 +120,12 @@ export default function SignUp(match) {
 
             axios.post(URL + `auth/signup`, pack)
                 .then(response => {
-                    console.log('here');
                     setUser(response.data);
                     history.push({
                         pathname: `/user/${response.data.first_name}_${response.data.last_name}`,
                     })
                 })
                 .catch(err => {
-                    console.log('not here');
                     console.log(err);
                     setUser(null);
                 });
