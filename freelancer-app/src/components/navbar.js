@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,6 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
 import { UserContext } from '.././userContext';
+import axios from 'axios';
+import { URL } from '../constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = (props) => {
     const classes = useStyles();
-    const { user, setUser } = useContext(UserContext);
+    const { user, logout } = useContext(UserContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -52,7 +55,7 @@ const NavBar = (props) => {
 
                         <Link to='/' className={ classes.icon }>Workflows</Link>
                     </Typography>
-                    {user && (
+                    {user?.role && (
                         <div>
                             <IconButton
                                 aria-label="account of current user"
@@ -78,8 +81,8 @@ const NavBar = (props) => {
                                 open={open}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}><Link to={`/user/${user.first_name}`} className={classes.icon}>My account</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to='/' >Logout</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to={`/user/${user.first_name}_${user.last_name}`} className={classes.icon}>My account</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to='/' onClick={e => logout(e)}>Logout</Link></MenuItem>
                             </Menu>
                         </div>
                     )}

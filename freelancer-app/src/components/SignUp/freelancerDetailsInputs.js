@@ -29,8 +29,8 @@ export default function FreelancerDetailsInputs(props) {
                     id="freelaancer-description"
                     label="A short description on yourself"
                     autoFocus
-                    onChange = {props.handleChange('cutomer')}
-                    defaultValue = {props.freelancer.description}
+                    onChange = {props.handleChange('description')}
+                    value = {props.freelancer.description}
                 />
             </Grid>
             <Grid item xs = {12} >
@@ -49,7 +49,7 @@ export default function FreelancerDetailsInputs(props) {
                     label="Employment History"
                     autoFocus
                     onChange = {props.handleChange('workExperience')}
-                    defaultValue = {props.freelancer.workExperience}
+                    value = {props.freelancer.workExperience}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -63,7 +63,7 @@ export default function FreelancerDetailsInputs(props) {
                     label="programming languages you master"
                     autoFocus
                     onChange = {props.handleChange('programming')}
-                    defaultValue = {props.freelancer.programming}
+                    value = {props.freelancer.programming}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -74,10 +74,10 @@ export default function FreelancerDetailsInputs(props) {
                     multiline
                     fullWidth
                     id="workFields"
-                    label="Your programming expertise"
+                    label="Your work fields"
                     autoFocus
                     onChange = {props.handleChange('workFields')}
-                    defaultValue = {props.freelancer.workFields}
+                    value = {props.freelancer.workFields}
                 />
             </Grid>
         </Grid>

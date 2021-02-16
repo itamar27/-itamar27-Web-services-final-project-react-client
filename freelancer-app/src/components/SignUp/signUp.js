@@ -86,7 +86,7 @@ export default function SignUp(match) {
         description: "",
         workExperience: "",
         programming: "",
-        workField: ""
+        workFields: ""
     })
 
 
@@ -95,11 +95,15 @@ export default function SignUp(match) {
 
         if (input === 'customer')
             setCustomer(event.target.value);
-        else if (input === 'freelancer')
+
+        else if (input === 'workExperience' || input === 'programming' || input === 'workFields' || input === 'description')
             setFreelancer({ ...freelancer, [input]: event.target.value });
+
         else
             setInputs({ ...inputs, [input]: event.target.value });
     }
+
+
 
     const onSubmit = event => {
 
@@ -116,13 +120,11 @@ export default function SignUp(match) {
             filled = true;
         }
         if (filled) {
-            console.log(pack);
-
             axios.post(URL + `auth/signup`, pack)
                 .then(response => {
-                    setUser(response.data);
+                    setUser(response.data.user);
                     history.push({
-                        pathname: `/user/${response.data.first_name}_${response.data.last_name}`,
+                        pathname: response.data.url,
                     })
                 })
                 .catch(err => {
@@ -139,58 +141,58 @@ export default function SignUp(match) {
 
         switch (choice) {
             case 1:
-                return <CustomerDetailsInputs handleChange={ handleChange } value={ customer } />
+                return <CustomerDetailsInputs handleChange={handleChange} value={customer} />
             case 2:
-                return <FreelancerDetailsInputs handleChange={ handleChange } freelancer={ freelancer } />
+                return <FreelancerDetailsInputs handleChange={handleChange} freelancer={freelancer} />
             default:
                 break;
         }
     }
 
     return (
-        <Container component="main" className={ classes.main }>
+        <Container component="main" className={classes.main}>
             <CssBaseline />
-            <div className={ classes.paper }>
+            <div className={classes.paper}>
                 <Typography component="h1" variant="h5">
                     Join our community!
                  </Typography>
-                <form className={ classes.formControl } onSubmit={ onSubmit }>
-                    <FormControl className={ classes.form }>
+                <form className={classes.formControl} onSubmit={onSubmit}>
+                    <FormControl className={classes.form}>
 
                         <PersonalDetails
-                            handleChange={ handleChange }
-                            values={ inputs }
+                            handleChange={handleChange}
+                            values={inputs}
                         />
-                        <Grid container spacing={ 2 } className={ classes.buttonsContainer }>
-                            <Grid item style={ { textAlign: 'center' } } xs={ 6 }>
+                        <Grid container spacing={2} className={classes.buttonsContainer}>
+                            <Grid item style={{ textAlign: 'center' }} xs={6}>
                                 <Button
-                                    className={ classes.buttonsContainer }
+                                    className={classes.buttonsContainer}
                                     variant='outlined'
                                     color='primary'
-                                    onClick={ e => { e.preventDefault(); setCLicked(Math.abs(1 - clicked)) } }
+                                    onClick={e => { e.preventDefault(); setCLicked(Math.abs(1 - clicked)) }}
                                 >
                                     I'm a customer
                                 </Button>
                             </Grid>
-                            <Grid item style={ { textAlign: 'center' } } xs={ 6 }>
+                            <Grid item style={{ textAlign: 'center' }} xs={6}>
                                 <Button
-                                    className={ classes.buttonsContainer }
+                                    className={classes.buttonsContainer}
                                     variant='outlined'
                                     color='secondary'
-                                    onClick={ e => { e.preventDefault(); setCLicked(Math.abs(2 - clicked)) } }
+                                    onClick={e => { e.preventDefault(); setCLicked(Math.abs(2 - clicked)) }}
                                 >
                                     I'm a freelancer
                                 </Button>
                             </Grid>
                         </Grid>
-                        { renderUserInputs(clicked) }
+                        {renderUserInputs(clicked)}
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
-                            className={ classes.submit }
-                            onClick={ onSubmit }
+                            className={classes.submit}
+                            onClick={onSubmit}
                         >
                             Sign Up
                         </Button>

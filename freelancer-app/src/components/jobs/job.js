@@ -78,7 +78,6 @@ const useStyles = makeStyles({
     },
     input: {
         width: '100%',
-        // height: '60vh',
         border: '2px solid #EE4D47',
         borderRadius: 5,
         marginBottom: 14,
@@ -95,7 +94,6 @@ export default function Job(props) {
 
     const renderComments = () => {
         const comment = props.comments;
-        console.log(comment);
         const editing = (<form>
             <TextField
 
@@ -160,7 +158,7 @@ export default function Job(props) {
                 </label>
 
                 {props.role === 'freelancer' ?
-                    <Button classes={{ label: classes.label, root: classes.button }}>
+                    <Button classes={{ label: classes.label, root: classes.button }} onClick={e => props.accept(e, props.description, props.title, props.price, props.customerId, props.projectId)}>
                         Accept!
                     </Button>
                     :

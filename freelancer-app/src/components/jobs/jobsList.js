@@ -12,6 +12,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         width: '100%',
         boxShadow: 'none',
+        marginBottom: '8vh',
     },
 
 
@@ -30,9 +31,12 @@ export default function JobsList(props) {
                 description={ job.description }
                 comments={ job.comment }
                 price={ job.price }
+                customerId= {job.owner_id}
                 role={ props.user.role }
                 editComment = {props.editComment}
                 saveComment = {props.saveComment}
+                accept = {props.accept}
+                projectId = {job.project_id}
             />
         )
     }

@@ -1,10 +1,13 @@
+import React, { useState, useEffect,useContext } from "react";
+import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useState, useEffect } from "react";
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Phase from './phase'
+
+import { UserContext } from '../../userContext';
 
 
 import SideBar from './sideBar'
@@ -19,6 +22,10 @@ const useStyles = makeStyles({
 
 
 export default function Map(props) {
+
+    const { user } = useContext(UserContext);
+    const {jobId} = useLocation().state || {};
+    const classes = useStyles();
     const [goals, setGoals] = useState([]);
     const [phases, setPhases] = useState([]);
 
@@ -26,11 +33,10 @@ export default function Map(props) {
 
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/jobs/26', { withCredentials: true, credentials: 'include' })
+        axios.get(`http://localhost:3000/api/jobs/${jobId}`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
+
                 setGoals(response.data.goals)
-
-
             })
             .catch((err) => {
                 console.log(err)
@@ -59,41 +65,43 @@ export default function Map(props) {
 
     useEffect(() => {
         if (goals !== 0) {
-            console.log('here');
             splitToPhases();
         }
-
-
     }, [goals]);
 
     const eachPhase = (phase, i) => {
         console.log(i);
         return (
             <Phase
-                key={ i }
-                goals={ phase }
-                color={ colors[i] }
-                phaseNumber={ i + 1 }
-                editGoal={ () => { console.log('editing') } }
+                key={i}
+                goals={phase}
+                color={colors[i]}
+                phaseNumber={i + 1}
+                editGoal={() => { console.log('editing') }}
 
             />
         )
     }
 
-
-    const classes = useStyles();
+    
+    if (!user) {
+        return (
+            <>
+            </>
+        )
+    }
     return (
         <>
 
-            {/* <SimpleBar> */ }
-            {/* <SideBar /> */ }
+            <SimpleBar>
+                <SideBar />
 
-            <div className={ classes.container }>
+                <div className={classes.container}>
 
-                { phases.map((phase, i) => eachPhase(phase, i)) }
+                    {phases.map((phase, i) => eachPhase(phase, i))}
 
-            </div>
-            {/* </SimpleBar > */ }
+                </div>
+            </SimpleBar >
         </>
     )
 }
