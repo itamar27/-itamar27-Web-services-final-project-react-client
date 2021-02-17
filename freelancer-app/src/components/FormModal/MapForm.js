@@ -106,7 +106,7 @@ export default function MapForm(props) {
 					jobId : response.data,
 				}
 				history.push({
-					pathname: `/${props.user.first_name}_${props.user.last_name}/map/${response.data}`,
+					pathname: `/user/${props.user.first_name}_${props.user.last_name}/map/${response.data}`,
 					state : data
 				})
 			})

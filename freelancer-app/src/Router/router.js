@@ -15,7 +15,7 @@ export default function ReactRouter(props) {
                 <Route path="/signup" component={SignUp} />
                 <Route exact path="/user/:name" component={UserPage} />
                 <Route exact path='/job_offers' component={jobOffers}/>
-                <Route exact path="/:name/map/:id" component={Map} />
+                <Route exact path="/user/:name/map/:id" component={Map} />
             </ Switch>
         </>
     )
