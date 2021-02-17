@@ -12,36 +12,32 @@ import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles({
     'container': {
+        position: 'relative',
         display: 'flex',
         flexDirection: 'column',
         borderWidth: 5,
         borderStyle: 'solid',
-        borderColor: '#c0ace8',
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-
-        height: '40vh',
-        width: '25vw',
-
+        maxHeight: '40vh',
+        minHeight: '20vh',
+        width: '20vw',
         overflow: 'auto',
         padding: 15,
         boxShadow: 'none',
-
     },
 
     footer: {
-        width: '25vw',
+        width: '20vw',
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
         padding: 15,
         boxShadow: 'none',
-
         borderWidth: 5,
         borderStyle: 'solid',
-        borderColor: '#c0ace8',
         borderTopWidth: 0,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
@@ -83,7 +79,14 @@ const useStyles = makeStyles({
         marginBottom: 14,
         fontWeight: 'bold',
     },
-
+    active: {
+        position: 'absolute',
+        fill: '#1bc234',
+        top: 5,
+        right: 5,
+        margin: 0,
+        padding: 0
+    }
 });
 
 
@@ -91,6 +94,16 @@ export default function Job(props) {
 
     const [editComment, setEditComment] = useState(false);
     const classes = useStyles();
+
+    const color = () => {
+        if (props.active)
+            return "#B9F5A9";
+        else
+            return "#c0ace8";
+
+    }
+
+
 
     const renderComments = () => {
         const comment = props.comments;
@@ -135,10 +148,11 @@ export default function Job(props) {
 
     return (
         <Card style={{ boxShadow: 'none', margin: 30 }}>
-            <Card className={classes.container}>
+            <Card className={classes.container} style={{ borderColor: color() }}>
+                {props.active ? <h6 className={classes.active} >active</h6> : <h6 className={classes.active} >Job offer</h6>}
                 <SimpleBar style={{ maxHeight: '100%', paddingRight: 15 }}>
                     <div className={classes.content}>
-                        <h1 style={{ marginTop: 10, marginBottom: 0, fontSize: '4vmin', fontWeight: 500, color: '#3b1687' }}>
+                        <h1 style={{ display: 'inline', marginTop: 10, marginBottom: 0, fontSize: '4vmin', fontWeight: 500, color: '#3b1687' }}>
                             {props.title}
                         </h1>
 
@@ -146,13 +160,11 @@ export default function Job(props) {
                             {props.description}
                         </p>
                         {renderComments()}
-
-
                     </div>
 
                 </SimpleBar>
             </Card>
-            <Card className={classes.footer}>
+            <Card className={classes.footer} style={{ borderColor: color() }}>
                 <label style={{ height: 'fit-content', fontSize: '2.6vh', fontWeight: 500 }}>
                     {`${props.price}$`}
                 </label>

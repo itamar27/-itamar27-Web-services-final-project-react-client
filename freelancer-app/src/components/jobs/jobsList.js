@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 export default function JobsList(props) {
     const classes = useStyles();
 
+    console.log(props);
     const eachJob = (job, i) => {
         return (
             <Job
@@ -37,6 +38,7 @@ export default function JobsList(props) {
                 saveComment = {props.saveComment}
                 accept = {props.accept}
                 projectId = {job.project_id}
+                active = {props.active}
             />
         )
     }
