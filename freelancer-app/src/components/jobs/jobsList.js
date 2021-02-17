@@ -26,20 +26,22 @@ export default function JobsList(props) {
         return (
             <Job
                 key={ i }
-                id = {job.project_id}
+                id={ job.project_id }
                 title={ job.title }
                 description={ job.description }
                 comments={ job.comment }
                 price={ job.price }
-                customerId= {job.owner_id}
+                customerId={ job.owner_id }
                 role={ props.user.role }
-                editComment = {props.editComment}
-                saveComment = {props.saveComment}
-                accept = {props.accept}
-                projectId = {job.project_id}
+                editComment={ props.editComment }
+                saveComment={ props.saveComment }
+                accept={ props.accept }
+                projectId={ job.project_id }
             />
         )
     }
+
+    // console.log(props.jobs)
 
     return (
         <Paper className={ classes.container }>

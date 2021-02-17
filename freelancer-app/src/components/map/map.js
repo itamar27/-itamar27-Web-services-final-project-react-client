@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import SimpleBar from 'simplebar-react';
@@ -14,16 +14,13 @@ import SideBar from './sideBar'
 
 
 const useStyles = makeStyles({
-    container: {
-        marginTop: 80,
-        // backgroundColor: 'grey',
-    }
+
 });
 
 
 export default function Map(props) {
     //for guy's work...
-    const jobId = 9; 
+    const jobId = 10;
 
     const { user } = useContext(UserContext);
     // const {jobId} = useLocation().state || {};
@@ -31,7 +28,7 @@ export default function Map(props) {
     const [goals, setGoals] = useState([]);
     const [phases, setPhases] = useState([]);
 
-    const colors = ['red', 'green', 'yellow', 'purple'];
+    const colors = ['#B9F5A9', '#F8F8B0', '#FAD8BF'];
 
 
     useEffect(() => {
@@ -75,17 +72,17 @@ export default function Map(props) {
         console.log(i);
         return (
             <Phase
-                key={i}
-                goals={phase}
-                color={colors[i]}
-                phaseNumber={i + 1}
-                editGoal={() => { console.log('editing') }}
+                key={ i }
+                goals={ phase }
+                color={ colors[i] }
+                phaseNumber={ i + 1 }
+                editGoal={ () => { console.log('editing') } }
 
             />
         )
     }
 
-    
+
     if (!user) {
         return (
             <>
@@ -93,17 +90,12 @@ export default function Map(props) {
         )
     }
     return (
-        <>
+        <SimpleBar>
+            <SideBar />
 
-            <SimpleBar>
-                <SideBar />
-
-                <div className={classes.container}>
-
-                    {phases.map((phase, i) => eachPhase(phase, i))}
-
-                </div>
-            </SimpleBar >
-        </>
+            <div style={ { marginTop: 20 } }>
+                { phases.map((phase, i) => eachPhase(phase, i)) }
+            </div>
+        </SimpleBar >
     )
 }
