@@ -22,6 +22,7 @@ const useStyles = makeStyles({
 export default function JobsList(props) {
     const classes = useStyles();
 
+    console.log(props);
     const eachJob = (job, i) => {
         return (
             <Job
@@ -33,10 +34,12 @@ export default function JobsList(props) {
                 price={ job.price }
                 customerId={ job.owner_id }
                 role={ props.user.role }
-                editComment={ props.editComment }
-                saveComment={ props.saveComment }
-                accept={ props.accept }
-                projectId={ job.project_id }
+                editComment = {props.editComment}
+                saveComment = {props.saveComment}
+                accept = {props.accept}
+                projectId = {job.project_id}
+                active = {props.active}
+
             />
         )
     }

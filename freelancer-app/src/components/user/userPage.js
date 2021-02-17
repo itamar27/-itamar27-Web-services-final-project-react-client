@@ -26,23 +26,27 @@ const useStyles = makeStyles({
 export default function UserPage(props) {
     const [jobOffers, setJobOffers] = useState(null);
     const [activeJobs, setActiveJobs] = useState(null);
-    const { user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const classes = useStyles();
 
 
     useEffect(() => {
-        // axios.get(`http://localhost:3000/api/jobs/${user.id}`, { withCredentials: true, credentials: 'include' })
-        //     .then((response) => {
-        //         setActiveJobs(response.data)
-        //         console.log(response.data);
-        //     })
-        //     .catch((err) => {
-        //         console.log("ERROR WITH GET ACTIVE JOBS")
-        //     })
-
+        if (user)
+            getActiveJobs();
         getJobOffers();
     }, [user]);
+
+    const getActiveJobs = () => {
+        axios.get(`http://localhost:3000/api/jobs/user/${user.id}`, { withCredentials: true, credentials: 'include' })
+            .then((response) => {
+                setActiveJobs(response.data)
+                console.log(response.data);
+            })
+            .catch((err) => {
+                console.log("ERROR WITH GET ACTIVE JOBS")
+            })
+    };
 
     const getJobOffers = () => {
         axios.get(`http://localhost:3000/api/freelancerApi/projects/user`, { withCredentials: true, credentials: 'include' })
@@ -52,7 +56,7 @@ export default function UserPage(props) {
             .catch((err) => {
                 console.log(err)
             })
-    }
+    };
 
     const handleCommentChange = (event, id) => {
 
@@ -60,7 +64,7 @@ export default function UserPage(props) {
         let newJobOffers = [...jobOffers];
         newJobOffers[index]['comment'] = event.target.value;
         setJobOffers(newJobOffers);
-    }
+    };
 
     const saveComment = (id, value) => {
 
@@ -71,19 +75,20 @@ export default function UserPage(props) {
             .catch(err => {
                 console.log(err);
             });
-    }
+    };
 
     if (!user) {
         return (
             <>
             </>
         )
-    }
+    };
 
     return (
         <Paper className={classes.container}>
             <h1 className={classes.title}>{user.first_name} welcome back!</h1>
+            { activeJobs ? <JobList active ={true} jobs={activeJobs} editComment={handleCommentChange} saveComment={saveComment} user={user} /> : null}
             { jobOffers ? <JobList jobs={jobOffers} editComment={handleCommentChange} saveComment={saveComment} user={user} /> : null}
         </Paper >
     )
-}
+};
