@@ -17,7 +17,8 @@ const useStyles = makeStyles({
         width: '25vw',
         borderRadius: 10,
         height: 'fit-content',
-        margin: 20
+        margin: 20,
+        marginTop: 0
     },
     description: {
         display: 'flex',
@@ -34,6 +35,7 @@ const useStyles = makeStyles({
         marginTop: 10,
         fontSize: '2.5vh',
         fontWeight: 500,
+        // fontFamily: 'Raleway'
     }
 });
 

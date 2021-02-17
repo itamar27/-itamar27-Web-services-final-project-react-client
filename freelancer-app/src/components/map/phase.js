@@ -7,14 +7,17 @@ import Divider from '@material-ui/core/Divider';
 const useStyles = makeStyles({
     mainContainer: {
         display: 'flex',
+        flexDirection: 'column',
+    },
+    goalContainer: {
+        display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        // width: '100%',
-        padding: 30
+        marginBottom: 30
     },
     labelContainer: {
         display: 'flex',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     }
 });
 
@@ -41,11 +44,14 @@ export default function Phase(props) {
         <>
             <div className={ classes.mainContainer }>
                 <div className={ classes.labelContainer }>
-                    <label style={ { fontSize: '3vh' } }>
+                    <label style={ { fontSize: '3vh', marginLeft: '5vw', fontFamily: 'Raleway' } }>
                         { `Phase:${props.phaseNumber}` }
                     </label>
                 </div>
-                { props.goals.map((goal, i) => eachGoal(goal, i)) }
+                <div className={ classes.goalContainer }>
+                    { props.goals.map((goal, i) => eachGoal(goal, i)) }
+                </div>
+
             </div>
         </>
     )
