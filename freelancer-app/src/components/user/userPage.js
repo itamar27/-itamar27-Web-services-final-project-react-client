@@ -20,15 +20,13 @@ const useStyles = makeStyles({
         color: '#3b1687',
 
     },
-
-
 });
 
 
 export default function UserPage(props) {
     const [jobOffers, setJobOffers] = useState(null);
     const [activeJobs, setActiveJobs] = useState(null);
-    const { user, setUser } = useContext(UserContext);
+    const { user} = useContext(UserContext);
 
     const classes = useStyles();
 
@@ -44,7 +42,7 @@ export default function UserPage(props) {
         //     })
 
         getJobOffers();
-    }, []);
+    }, [user]);
 
     const getJobOffers = () => {
         axios.get(`http://localhost:3000/api/freelancerApi/projects/user`, { withCredentials: true, credentials: 'include' })
@@ -54,9 +52,8 @@ export default function UserPage(props) {
             .catch((err) => {
                 console.log(err)
             })
-
     }
-    
+
     const handleCommentChange = (event, id) => {
 
         const index = jobOffers.findIndex(offer => offer.project_id === id);
@@ -67,16 +64,20 @@ export default function UserPage(props) {
 
     const saveComment = (id, value) => {
 
-        console.log(id, value);
         axios.put(URL + `api/comments/${id}`, { comment: value }, { withCredentials: true, credentials: 'include' })
             .then(response => {
                 console.log(response);
-                console.log('here');
             })
             .catch(err => {
-                console.log('not here');
                 console.log(err);
             });
+    }
+
+    if (!user) {
+        return (
+            <>
+            </>
+        )
     }
 
     return (

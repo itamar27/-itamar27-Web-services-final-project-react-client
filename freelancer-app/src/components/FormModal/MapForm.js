@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import { Grid, TextField, Typography, Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import { URL } from '../../constants';
 
-
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import Goal from './Goal';
 
 
@@ -39,9 +41,10 @@ export default function MapForm(props) {
 
 
 	const classes = useStyles();
+	const history = useHistory();
 
 	const [values, setValues] = useState({
-		description: '',
+		description: props.description,
 		projectName: '',
 		deadline: '',
 		goalsCount: 0
@@ -87,8 +90,30 @@ export default function MapForm(props) {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
-		console.log(values);
-		console.log(goals);
+		const newMap = {
+			description: values.description,
+			project_name: values.projectName,
+			price: props.price,
+			owner_id: props.customerId,
+			projectId: props.projectId,
+			deadline: values.deadline,
+			goals: goals,
+
+		};
+		axios.post(URL + `api/jobs`, newMap, { withCredentials: true, credentials: 'include' })
+			.then(response => {
+				const data = {
+					jobId : response.data,
+				}
+				history.push({
+					pathname: `/user/${props.user.first_name}_${props.user.last_name}/map/${response.data}`,
+					state : data
+				})
+			})
+			.catch(err => {
+				console.log(err);
+			});
+
 	}
 
 	const handleChange = event => {
@@ -124,9 +149,6 @@ export default function MapForm(props) {
 		)
 	}
 
-
-
-
 	return (
 
 		<form>
@@ -134,7 +156,6 @@ export default function MapForm(props) {
 				<Grid container className={classes.gridBox}>
 					<Grid item xs={12} >
 						<TextField
-
 							autoComplete="description"
 							name="description"
 							variant="outlined"
@@ -223,7 +244,7 @@ export default function MapForm(props) {
 						onClick={onSubmit}
 					>
 						Submit
-        </Button>
+        			</Button>
 				</Grid>
 			</FormControl>
 		</form>
