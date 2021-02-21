@@ -7,6 +7,8 @@ import { UserContext } from '../../userContext';
 import axios from 'axios'
 import JobList from '../jobs/jobsList'
 import Popup from '../FormModal/popup'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const useStyles = makeStyles({
     container: {
@@ -17,18 +19,29 @@ const useStyles = makeStyles({
         height: '100%',
         boxShadow: 'none',
         marginBottom: '10vh',
+        backgroundColor: '#FFFF'
     },
     title: {
-        fontFamily: 'Roboto',
         fontWeight: '500',
-        color: '#3b1687',
+        color: '#5C4FA0',
+        fontSize: '4vmin'
 
     },
+    secondaryTitle: {
+        fontWeight: '500',
+        color: '#5C4FA0',
+        fontSize: '2.5vmin'
+    },
     headerContainer: {
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    loading: {
+        position: 'relative',
+        marginTop: '15vh',
     }
 
 });
@@ -88,10 +101,9 @@ export default function UserPage(props) {
                 <h1 className={classes.title}>{user.first_name} welcome!</h1>
 
                 <Typography />
-                <h3 className={classes.title} style={{ margin: '0' }}> Here are some interesting job offers for you</h3>
+                <h3 className={classes.secondaryTitle} style={{ margin: '0' }}> Here are some interesting job offers for you</h3>
             </div>
-            { jobOffers ? <JobList jobs={jobOffers} accept={accept} user={user} /> : null}
-
+            { jobOffers ? <JobList jobs={jobOffers} accept={accept} user={user} /> : <CircularProgress className={classes.loading}/> }
             <Popup
 
                 user={user}

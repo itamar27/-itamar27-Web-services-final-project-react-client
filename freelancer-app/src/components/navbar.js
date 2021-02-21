@@ -16,14 +16,22 @@ import { URL } from '../constants';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
         backgroundColor: '#B3E3F8',
+        height: '100%',
+
+        
+    },
+    container: {
+        display: 'flex',
+        height: '100%',
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
         flexGrow: 1,
+        fontWeight: '600',
+        fontSize: '3vh',
     },
     icon: {
         color: 'grey',
@@ -47,13 +55,12 @@ const NavBar = (props) => {
     };
 
     return (
-        <div className={ classes.root }>
             <AppBar position="static" className={ classes.root }>
-                <Toolbar>
+                <Toolbar style = {{height:"100%"}}>
 
-                    <Typography variant="h6" className={ classes.title }>
+                    <Typography  variant="h6" className={ classes.title }>
 
-                        <Link to='/' className={ classes.icon }>Workflows</Link>
+                        <Link to='/' className={ classes.icon } style={{fontWeight:'500'}}>Workflows</Link>
                     </Typography>
                     {user?.role && (
                         <div>
@@ -88,7 +95,6 @@ const NavBar = (props) => {
                     )}
                 </Toolbar>
             </AppBar>
-        </div>
     );
 };
 export default NavBar;

@@ -20,11 +20,11 @@ const useStyles = makeStyles({
 
 export default function Map(props) {
     //for guy's work...
-    const jobId = 10;
+    // const jobId = 10;
 
     const { user } = useContext(UserContext);
-    // const {jobId} = useLocation().state || {};
-    const classes = useStyles();
+    const {jobId} = useLocation().state || {};
+    // const classes = useStyles();
     const [goals, setGoals] = useState([]);
     const [phases, setPhases] = useState([]);
 

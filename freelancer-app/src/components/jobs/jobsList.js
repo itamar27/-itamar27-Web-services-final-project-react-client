@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import React, { useState } from "react";
+import React from "react";
 import Paper from '@material-ui/core/Paper';
 import Job from "./job"
 
@@ -7,22 +7,19 @@ import Job from "./job"
 const useStyles = makeStyles({
     container: {
         marginTop: 20,
+        marginBottom: '4vh',
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
         width: '100%',
         boxShadow: 'none',
-        marginBottom: '8vh',
     },
-
-
 });
 
 
 export default function JobsList(props) {
     const classes = useStyles();
 
-    console.log(props);
     const eachJob = (job, i) => {
         return (
             <Job
@@ -39,12 +36,12 @@ export default function JobsList(props) {
                 accept = {props.accept}
                 projectId = {job.project_id}
                 active = {props.active}
+                goToMap = {props.goToMap}
 
             />
         )
     }
 
-    // console.log(props.jobs)
 
     return (
         <Paper className={ classes.container }>
