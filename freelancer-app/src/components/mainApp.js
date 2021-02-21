@@ -25,7 +25,9 @@ const MainApp = () => {
     const logout = (e) => {
         e.preventDefault();
         setUser(null);
-        axios.get(URL + 'auth/logout', { withCredentials: true, credentials: 'include' });
+        axios.get(URL + 'auth/logout', { withCredentials: true, credentials: 'include' })
+        .then(response => console.log(response))
+        .catch(err => console.log(err));
         history.push({
             pathname: `/`
         });
