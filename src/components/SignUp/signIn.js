@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useHistory } from 'react-router-dom';
@@ -53,8 +52,8 @@ export default function SignIn() {
 
   const history = useHistory();
 
-  
-  const googleSuccess =  (response) => {
+
+  const googleSuccess = (response) => {
     window.localStorage.setItem('userData', response.tokenId);
     auth(response.tokenId, setUser, history);
   }
@@ -68,16 +67,16 @@ export default function SignIn() {
 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className={ classes.paper }>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={ classes.form } noValidate>
           <GoogleLogin
-            className={classes.google}
+            className={ classes.google }
             clientId="862545460693-9fe0uqlq4u6pug9ineb575slh98uhare.apps.googleusercontent.com"
-            onSuccess={googleSuccess}
-            onFailure={googleFailure}
+            onSuccess={ googleSuccess }
+            onFailure={ googleFailure }
           />
           <TextField
             variant="outlined"
@@ -106,14 +105,14 @@ export default function SignIn() {
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}
+            className={ classes.submit }
           >
             Sign In
           </Button>
           <Grid container>
             <Grid item>
               <Link href="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
+                { "Don't have an account? Sign Up" }
               </Link>
             </Grid>
           </Grid>

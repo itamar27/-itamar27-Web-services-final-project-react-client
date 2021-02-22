@@ -34,12 +34,12 @@ export default function PersonalDetails(props) {
 
     const classes = useStyles();
 
-    const { firstName, lastName, country, city, streetNumber, appt } = props.values;
+    const { firstName, lastName, appt } = props.values;
 
     return (
         <>
-            <Grid container spacing={1}>
-                <Grid item xs={12} sm={6}>
+            <Grid container spacing={ 1 }>
+                <Grid item xs={ 12 } sm={ 6 }>
                     <TextField
                         autoComplete="fname"
                         name="firstName"
@@ -49,11 +49,11 @@ export default function PersonalDetails(props) {
                         id="firstName"
                         label="First Name"
                         autoFocus
-                        onChange={props.handleChange('firstName')}
-                        defaultValue={firstName}
+                        onChange={ props.handleChange('firstName') }
+                        defaultValue={ firstName }
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={ 12 } sm={ 6 }>
                     <TextField
                         variant="outlined"
                         required
@@ -62,45 +62,45 @@ export default function PersonalDetails(props) {
                         label="Last Name"
                         name="lastName"
                         autoComplete="lname"
-                        onChange={props.handleChange('lastName')}
-                        defaultValue={lastName}
+                        onChange={ props.handleChange('lastName') }
+                        defaultValue={ lastName }
                     />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={ 12 } sm={ 4 }>
                     <TextField
                         variant="outlined"
                         fullWidth
                         id="facebook"
                         label="facebook"
                         name="facebook"
-                        onChange={props.handleChange('facebook')}
-                        defaultValue={appt}
+                        onChange={ props.handleChange('facebook') }
+                        defaultValue={ appt }
                     />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={ 12 } sm={ 4 }>
                     <TextField
                         variant="outlined"
                         fullWidth
                         id="instgram"
                         label="instgram"
                         name="instgram"
-                        onChange={props.handleChange('instgram')}
-                        defaultValue={appt}
+                        onChange={ props.handleChange('instgram') }
+                        defaultValue={ appt }
                     />
                 </Grid>
-                <Grid item xs={12} sm={4}>
+                <Grid item xs={ 12 } sm={ 4 }>
                     <TextField
                         variant="outlined"
                         fullWidth
                         id="linkedin"
                         label="linkedin"
                         name="linkedin"
-                        onChange={props.handleChange('linkedin')}
-                        defaultValue={appt}
+                        onChange={ props.handleChange('linkedin') }
+                        defaultValue={ appt }
                     />
                 </Grid>
             </Grid>
-            <Divider variant="fullWidth" className={classes.divider} />
+            <Divider variant="fullWidth" className={ classes.divider } />
         </>
     )
 }

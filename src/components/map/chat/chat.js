@@ -1,16 +1,12 @@
-import React, { useState, useContext } from "react";
-
-
+import React from "react";
 import ChatMessage from './chatMessage'
 import { makeStyles } from '@material-ui/core/styles';
-
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-import { UserContext } from '../../../userContext';
 import Input from '@material-ui/core/Input';
 
 
@@ -68,65 +64,6 @@ const useStyles = makeStyles({
 
 export default function Chat(props) {
     const classes = useStyles();
-    const [newComment, setComment] = useState('')
-    const { user } = useContext(UserContext);
-
-    // const comments = [
-    //     {
-    //         type: 'costumer',
-    //         time: '12:33:03',
-    //         name: 'my name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'freelancer',
-    //         time: '12:33:03',
-    //         name: 'his name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'costumer',
-    //         time: '12:33:03',
-    //         name: 'my name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'freelancer',
-    //         time: '12:33:03',
-    //         name: 'his name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'costumer',
-    //         time: '12:33:03',
-    //         name: 'my name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'freelancer',
-    //         time: '12:33:03',
-    //         name: 'his name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'costumer',
-    //         time: '12:33:03',
-    //         name: 'my name',
-    //         comment: 'this is a comment about somthing'
-    //     },
-    //     {
-    //         type: 'freelancer',
-    //         time: '12:33:03',
-    //         name: 'his name',
-    //         comment: 'this is a comment about somthing'
-    //     }
-    // ]
-
-    const handleChange = (event) => {
-        setComment(event.target.value)
-    };
-
-
 
     const eachComment = (comment, i) => {
 
@@ -154,11 +91,11 @@ export default function Chat(props) {
                         id="cooment"
 
                         type='text'
-                        value={ newComment }
-                        onChange={ handleChange }
+                        value={ props.newComment }
+                        onChange={ props.handleChange }
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton onClick={ () => props.send(newComment) } >
+                                <IconButton onClick={ () => props.send() } >
                                     <SendIcon style={ { width: '3vh', height: '3vh' } } />
                                 </IconButton>
                             </InputAdornment>
