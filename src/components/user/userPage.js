@@ -60,7 +60,6 @@ export default function UserPage(props) {
     }, [user]);
 
     const getActiveJobs = () => {
-
         axios.get(URL + `api/jobs/user/${user.id}`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 if (!response.data.error)
@@ -85,7 +84,6 @@ export default function UserPage(props) {
     };
 
     const getJobOffers = () => {
-        console.log(`before offers: ${user}`);
         axios.get(URL + `api/freelancerApi/projects/user`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 if (!response.data.error)
@@ -110,7 +108,6 @@ export default function UserPage(props) {
     }
 
     const handleCommentChange = (event, id) => {
-
         const index = jobOffers.findIndex(offer => offer.project_id === id);
         let newJobOffers = [...jobOffers];
         newJobOffers[index]['comment'] = event.target.value;
@@ -141,6 +138,7 @@ export default function UserPage(props) {
     return (
         <Paper className={ classes.container }>
             <h1 className={ classes.title }>{ user.first_name } welcome back!</h1>
+
             { activeJobs || jobOffers ?
                 <>
                     {activeJobs ? <JobList goToMap={ goToMap } active={ true } jobs={ activeJobs } editComment={ handleCommentChange } saveComment={ saveComment } user={ user } /> : null }

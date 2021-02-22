@@ -39,7 +39,7 @@ export default function Map(props) {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/jobs/${jobId}`, { withCredentials: true, credentials: 'include' })
+        axios.get(URL + `api/jobs/${jobId}`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 setJob(response.data)
                 setGoals(response.data.goals)
