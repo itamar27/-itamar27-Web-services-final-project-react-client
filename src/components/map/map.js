@@ -1,28 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useLocation } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
-import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Phase from './phase'
-import URL from '../../constants'
-
-
+import { URL } from '../../constants'
+import moment from 'moment'
 import { UserContext } from '../../userContext';
 
 
 import SideBar from './sideBar'
 
-
-const useStyles = makeStyles({
-
-});
-
-
 export default function Map(props) {
-    //for guy's work...
-    // const jobId = 10;
 
     const defaultGoal = {
         comments: [],
@@ -31,18 +20,19 @@ export default function Map(props) {
         name: '',
         phase: -1,
         progress: 0,
+        goals: null,
         _id: 0
     }
+
     const { user } = useContext(UserContext);
     const { jobId } = useLocation().state || {};
-    // const classes = useStyles();
     const [goals, setGoals] = useState([]);
-    const [job, setJob] = useState(null);
+    const [job, setJob] = useState({});
     const [phases, setPhases] = useState([]);
 
-    const [comments, setComments] = useState([]);
     const [sideBarOpen, setSideBarOpen] = useState(false);
     const [sideBarGoal, setSideBarGoal] = useState(defaultGoal);
+    const [newComment, setNewComment] = useState('')
 
 
     const colors = ['#B9F5A9', '#F8F8B0', '#FAD8BF'];
@@ -60,6 +50,20 @@ export default function Map(props) {
 
     }, []);
 
+
+    useEffect(() => {
+        if (goals) {
+            splitToPhases();
+            updateJob()
+        }
+    }, [goals]);
+
+    useEffect(() => {
+        if (sideBarGoal._id !== 0) {
+            setSideBarOpen(true)
+        }
+
+    }, [sideBarGoal]);
 
     const splitToPhases = () => {
         let phaseNumbers = []
@@ -79,20 +83,6 @@ export default function Map(props) {
         setPhases(tmpPhases)
     }
 
-    useEffect(() => {
-        if (goals !== 0) {
-            splitToPhases();
-        }
-    }, [goals]);
-
-    useEffect(() => {
-        if (sideBarGoal._id !== 0) {
-            setSideBarOpen(true)
-        }
-
-    }, [sideBarGoal]);
-
-
     const editGoal = (id) => {
         let goalToEdit = goals.filter((goal) => goal._id === id)[0]
         setSideBarGoal(goalToEdit);
@@ -103,24 +93,25 @@ export default function Map(props) {
         setSideBarGoal(defaultGoal)
     }
 
-    const updateGoal = (data) => {
-        console.log('updating goal and leaving open');
+    const updateGoal = (close = true) => {
         const newGoals = goals.map((goal) => {
-            if (goal._id === data._id) {
-                goal = data
+            if (goal._id === sideBarGoal._id) {
+                return sideBarGoal
             }
-            return goal
+            else
+                return goal
         })
 
-        closeSideBar()
+        if (close)
+            closeSideBar()
+
         setGoals(newGoals)
-        setJob({ ...job, goals: goals })
     }
 
     const updateJob = () => {
-        axios.post(URL + `api/jobs/${job.id}`, job, { withCredentials: true, credentials: 'include' })
+        axios.put(URL + `api/jobs/${job.id}`, { goals: goals }, { withCredentials: true, credentials: 'include' })
             .then(response => {
-                console.log(response.data);
+                setJob(response.data)
             })
             .catch(err => {
                 console.log(err);
@@ -128,15 +119,46 @@ export default function Map(props) {
     }
 
     const deleteGoal = () => {
-        console.log('deleting goal and closing side bar');
         const newGoals = goals.filter((goal) => goal._id !== sideBarGoal._id)
+        setGoals(newGoals)
 
     }
 
-    const saveComment = (comment) => {
-        console.log('saving comment: ', comment);
+
+    const handleChange = event => {
+        setSideBarGoal({ ...sideBarGoal, [event.target.name]: event.target.value });
+
     }
 
+    const handleProgressChange = (value) => {
+        setSideBarGoal({ ...sideBarGoal, 'progress': value });
+
+    }
+
+    const handleMeaningfullChange = (value) => {
+        setSideBarGoal({ ...sideBarGoal, 'meaningful': value });
+    }
+
+
+    const handleCommentChange = (event) => {
+        setNewComment(event.target.value)
+    };
+
+    const saveComment = () => {
+        const comments = sideBarGoal.comments;
+        const comment = {
+            comment: newComment,
+            time: moment().format("DD MM YYYY"),
+            role: user.role,
+            name: `${user.first_name} ${user.last_name}`
+        }
+
+        comments.push(comment)
+        setNewComment('')
+        setSideBarGoal({ ...sideBarGoal, comments: comments })
+        updateGoal(false)
+
+    }
 
     const eachPhase = (phase, i) => {
         return (
@@ -146,6 +168,7 @@ export default function Map(props) {
                 color={ colors[i] }
                 phaseNumber={ i + 1 }
                 editGoal={ editGoal }
+
             />
         )
     }
@@ -161,7 +184,19 @@ export default function Map(props) {
 
     return (
         <>
-            <SideBar open={ sideBarOpen } close={ closeSideBar } data={ sideBarGoal } submit={ updateGoal } delete={ deleteGoal } send={ saveComment } />
+            <SideBar
+                open={ sideBarOpen }
+                close={ closeSideBar }
+                data={ sideBarGoal }
+                submit={ updateGoal }
+                delete={ deleteGoal }
+                send={ saveComment }
+                handleChange={ handleChange }
+                handleProgressChange={ handleProgressChange }
+                handleMeaningfullChange={ handleMeaningfullChange }
+                handleCommentChange={ handleCommentChange }
+                newComment={ newComment }
+            />
             <SimpleBar>
                 <div style={ { marginTop: 20, marginBottom: 40 } }>
                     { phases.map((phase, i) => eachPhase(phase, i)) }

@@ -3,12 +3,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import EditGoal from './editGoal'
 import Chat from './chat/chat'
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
+import { UserContext } from '../../userContext';
 
 
 const drawerWidth = '25vw';
@@ -31,6 +30,7 @@ const useStyles = makeStyles({
 
 export default function TemporaryDrawer(props) {
     const classes = useStyles();
+    const { user } = useContext(UserContext);
 
     // console.log(props.data);
     return (
@@ -41,8 +41,16 @@ export default function TemporaryDrawer(props) {
                         <ChevronRightIcon />
                     </IconButton>
                 </div>
-                <EditGoal goal={ props.data } submit={ props.submit } delete={ props.delete } />
-                <Chat comments={ props.data.comments } send={ props.send } />
+                { user.role === 'freelancer' ?
+                    <EditGoal goal={ props.data }
+                        submit={ props.submit }
+                        delete={ props.delete }
+                        handleChange={ props.handleChange }
+                        handleProgressChange={ props.handleProgressChange }
+                        handleMeaningfullChange={ props.handleMeaningfullChange }
+                    />
+                    : null }
+                <Chat comments={ props.data.comments } send={ props.send } handleChange={ props.handleCommentChange } newComment={ props.newComment } />
             </Drawer>
         </div>
     );

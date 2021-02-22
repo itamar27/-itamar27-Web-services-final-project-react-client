@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,17 +8,15 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import { Link } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-
 import { UserContext } from '.././userContext';
-import axios from 'axios';
-import { URL } from '../constants';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: '#B3E3F8',
         height: '100%',
 
-        
+
     },
     container: {
         display: 'flex',
@@ -55,46 +52,46 @@ const NavBar = (props) => {
     };
 
     return (
-            <AppBar position="static" className={ classes.root }>
-                <Toolbar style = {{height:"100%"}}>
+        <AppBar position="static" className={ classes.root }>
+            <Toolbar style={ { height: "100%" } }>
 
-                    <Typography  variant="h6" className={ classes.title }>
+                <Typography variant="h6" className={ classes.title }>
 
-                        <Link to='/' className={ classes.icon } style={{fontWeight:'500'}}>Workflows</Link>
-                    </Typography>
-                    {user?.role && (
-                        <div>
-                            <IconButton
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={handleMenu}
-                                color="inherit"
-                            >
-                                <AccountCircle className={classes.icon} />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}><Link to={`/user/${user.first_name}_${user.last_name}`} className={classes.icon}>My account</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to='/' onClick={e => logout(e)}>Logout</Link></MenuItem>
-                            </Menu>
-                        </div>
-                    )}
-                </Toolbar>
-            </AppBar>
+                    <Link to='/' className={ classes.icon } style={ { fontWeight: '500' } }>Workflows</Link>
+                </Typography>
+                { user?.role && (
+                    <div>
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={ handleMenu }
+                            color="inherit"
+                        >
+                            <AccountCircle className={ classes.icon } />
+                        </IconButton>
+                        <Menu
+                            id="menu-appbar"
+                            anchorEl={ anchorEl }
+                            anchorOrigin={ {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            } }
+                            keepMounted
+                            transformOrigin={ {
+                                vertical: 'top',
+                                horizontal: 'right',
+                            } }
+                            open={ open }
+                            onClose={ handleClose }
+                        >
+                            <MenuItem onClick={ handleClose }><Link to={ `/user/${user.first_name}_${user.last_name}` } className={ classes.icon }>My account</Link></MenuItem>
+                            <MenuItem onClick={ handleClose }><Link to='/' onClick={ e => logout(e) }>Logout</Link></MenuItem>
+                        </Menu>
+                    </div>
+                ) }
+            </Toolbar>
+        </AppBar>
     );
 };
 export default NavBar;

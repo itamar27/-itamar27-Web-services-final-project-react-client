@@ -1,9 +1,9 @@
-import {URL} from './constants';
+import { URL } from './constants';
 import axios from 'axios';
 
 
-const auth = async (token ,setUser, history) => {
-    axios.post(URL + `auth/login`, {token}, { withCredentials: true, credentials: 'include' })
+const auth = async (token, setUser, history) => {
+    axios.post(URL + `auth/login`, { token }, { withCredentials: true, credentials: 'include' })
         .then(res => {
             const user = res.data.user;
             const url = res.data.url;
@@ -16,7 +16,9 @@ const auth = async (token ,setUser, history) => {
             };
 
             if (res.data.user) {
-                setUser(data);
+                setUser(data)
+
+
                 if (window.location.pathname === "/") {
                     history.push({
                         pathname: `${url}`,
