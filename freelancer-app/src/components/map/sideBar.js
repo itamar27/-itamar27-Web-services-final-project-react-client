@@ -1,92 +1,50 @@
-import React, { useState } from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-
 
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import EditGoal from './editGoal'
-
 import Chat from './chat/chat'
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 
 
-const drawerWidth = '20vw';
+const drawerWidth = '25vw';
 
 const useStyles = makeStyles({
-    root: {
-        display: 'flex',
-    },
-    menuButton: {
-        position: 'absolute',
-        top: 100,
-        right: 50
-    },
-    hide: {
-        display: 'none',
-    },
+
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
     },
     drawerPaper: {
         width: drawerWidth,
-
     },
     drawerHeader: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginTop: '10vh'
     },
-
 });
 
-export default function SideBar() {
+export default function TemporaryDrawer(props) {
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
 
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
-
-    const handleNewUserMessage = (newMessage) => {
-        console.log(`New message incoming! ${newMessage}`);
-        // Now send the message throught the backend API
-    };
-
+    // console.log(props.data);
     return (
-        <div className={ classes.root }>
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={ handleDrawerOpen }
-                edge="end"
-                className={ classes.menuButton }
-            >
-                <MenuIcon />
-            </IconButton>
-            <Drawer
-                className={ classes.drawer }
-                variant="persistent"
-                anchor="right"
-                open={ open }
-                classes={ {
-                    paper: classes.drawerPaper,
-                } }>
+        <div>
+            <Drawer anchor={ 'right' } open={ props.open } className={ classes.drawer } classes={ { paper: classes.drawerPaper } }>
                 <div className={ classes.drawerHeader }>
-                    <IconButton onClick={ handleDrawerClose }>
+                    <IconButton onClick={ props.close }>
                         <ChevronRightIcon />
                     </IconButton>
                 </div>
-                <EditGoal />
-                <Chat />
-
+                <EditGoal goal={ props.data } submit={ props.submit } delete={ props.delete } />
+                <Chat comments={ props.data.comments } send={ props.send } />
             </Drawer>
         </div>
     );
 }
+

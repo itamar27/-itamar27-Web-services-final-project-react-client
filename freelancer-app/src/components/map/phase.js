@@ -26,11 +26,11 @@ export default function Phase(props) {
     const classes = useStyles();
 
     const eachGoal = (goal, i) => {
-        console.log(goal);
         return (
             <Goal
                 key={ i }
                 index={ i }
+                id={ goal._id }
                 title={ goal.name }
                 description={ goal.description }
                 meaningful={ goal.meaningful }

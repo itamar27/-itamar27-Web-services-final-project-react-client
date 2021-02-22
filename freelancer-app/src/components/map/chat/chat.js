@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 
 import ChatMessage from './chatMessage'
@@ -10,13 +10,13 @@ import SendIcon from '@material-ui/icons/Send';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-
+import { UserContext } from '../../../userContext';
 import Input from '@material-ui/core/Input';
 
 
 
 const useStyles = makeStyles({
-    'container': {
+    container: {
         display: 'flex',
         flexDirection: 'column',
         borderWidth: 3,
@@ -69,66 +69,63 @@ const useStyles = makeStyles({
 export default function Chat(props) {
     const classes = useStyles();
     const [newComment, setComment] = useState('')
+    const { user } = useContext(UserContext);
 
-    const comments = [
-        {
-            type: 'costumer',
-            time: '12:33:03',
-            name: 'my name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'freelancer',
-            time: '12:33:03',
-            name: 'his name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'costumer',
-            time: '12:33:03',
-            name: 'my name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'freelancer',
-            time: '12:33:03',
-            name: 'his name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'costumer',
-            time: '12:33:03',
-            name: 'my name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'freelancer',
-            time: '12:33:03',
-            name: 'his name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'costumer',
-            time: '12:33:03',
-            name: 'my name',
-            comment: 'this is a comment about somthing'
-        },
-        {
-            type: 'freelancer',
-            time: '12:33:03',
-            name: 'his name',
-            comment: 'this is a comment about somthing'
-        }
-    ]
+    // const comments = [
+    //     {
+    //         type: 'costumer',
+    //         time: '12:33:03',
+    //         name: 'my name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'freelancer',
+    //         time: '12:33:03',
+    //         name: 'his name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'costumer',
+    //         time: '12:33:03',
+    //         name: 'my name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'freelancer',
+    //         time: '12:33:03',
+    //         name: 'his name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'costumer',
+    //         time: '12:33:03',
+    //         name: 'my name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'freelancer',
+    //         time: '12:33:03',
+    //         name: 'his name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'costumer',
+    //         time: '12:33:03',
+    //         name: 'my name',
+    //         comment: 'this is a comment about somthing'
+    //     },
+    //     {
+    //         type: 'freelancer',
+    //         time: '12:33:03',
+    //         name: 'his name',
+    //         comment: 'this is a comment about somthing'
+    //     }
+    // ]
 
     const handleChange = (event) => {
         setComment(event.target.value)
-        console.log(newComment);
     };
 
-    const handleClick = () => {
-        console.log('send clicked');
-    };
 
 
     const eachComment = (comment, i) => {
@@ -136,7 +133,7 @@ export default function Chat(props) {
         return (
             <ChatMessage
                 key={ i }
-                type={ comment.type }
+                role={ comment.role }
                 time={ comment.time }
                 name={ comment.name }
                 comment={ comment.comment }
@@ -147,8 +144,8 @@ export default function Chat(props) {
     return (
         <div className={ classes.root }>
             <div className={ classes.container }>
-                <SimpleBar style={ { height: '30vh', maxHeight: '30vh', paddingRight: 10 } }>
-                    { comments.map((comment, i) => eachComment(comment, i)) }
+                <SimpleBar style={ { height: '35vh', maxHeight: '35vh', paddingRight: 10 } }>
+                    { props.comments.map((comment, i) => eachComment(comment, i)) }
                 </SimpleBar>
             </div>
             <div className={ classes.fotter }>
@@ -161,7 +158,7 @@ export default function Chat(props) {
                         onChange={ handleChange }
                         endAdornment={
                             <InputAdornment position="end">
-                                <IconButton onClick={ handleClick }>
+                                <IconButton onClick={ () => props.send(newComment) } >
                                     <SendIcon style={ { width: '3vh', height: '3vh' } } />
                                 </IconButton>
                             </InputAdornment>
