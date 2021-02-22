@@ -169,6 +169,8 @@ export default function MapForm(props) {
 							id="description"
 							label="description"
 							autoFocus
+							error
+							helperText = 'Description is too long'
 						/>
 					</Grid>
 				</Grid>
