@@ -38,8 +38,8 @@ const useStyles = makeStyles({
 export default function ChatMessage(props) {
     const classes = useStyles();
     return (
-        <div style={ { width: '100%', display: 'flex', justifyContent: props.type === 'freelancer' ? 'flex-start' : 'flex-end' } }>
-            <div className={ `${classes.base} ${props.type === 'freelancer' ? classes.color1 : classes.color2}` }>
+        <div style={ { width: '100%', display: 'flex', justifyContent: props.role === 'freelancer' ? 'flex-start' : 'flex-end' } }>
+            <div className={ `${classes.base} ${props.role === 'freelancer' ? classes.color1 : classes.color2}` }>
                 <label className={ classes.label }>
                     { `${props.time}, ${props.name}:` }
                 </label>
