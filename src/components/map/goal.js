@@ -1,11 +1,9 @@
 import { makeStyles } from '@material-ui/core/styles';
 import React from "react";
-import { Line } from 'rc-progress';
-import FlagOutlinedIcon from '@material-ui/icons/FlagOutlined';
-import Draggable from 'react-draggable';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import PriorityHighIcon from '@material-ui/icons/PriorityHigh';
 
 
 const useStyles = makeStyles({
@@ -43,7 +41,7 @@ export default function Goal(props) {
     const classes = useStyles();
     return (
         <div className={ classes.container } style={ { backgroundColor: props.color } } onClick={ () => props.editGoal(props.id) }>
-            {props.meaningful ? <div className={ classes.flagContainer }><FlagOutlinedIcon className={ classes.flagOutlined } /></div> : null }
+            {props.meaningful ? <div className={ classes.flagContainer }><PriorityHighIcon className={ classes.flagOutlined } /></div> : null }
 
             <h1 className={ classes.title }>
                 { props.title }

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useHistory } from 'react-router-dom';

@@ -105,28 +105,51 @@ export default function Job(props) {
 
     }
 
- 
-    const renderButton = () => {
+
+    const renderCustomerButton = () => {
 
         if (props.active) {
             return (
-                <Fab size='small' className={classes.iconButton} onClick={(e) => props.goToMap(e,props.projectId) } >
-                    <VisibilityIcon className={classes.icon} />
+                <Fab size='small' className={ classes.iconButton } onClick={ (e) => props.goToMap(e, props.projectId) } >
+                    <VisibilityIcon className={ classes.icon } />
                 </Fab>
             )
         }
         else {
             return (
                 !editComment ?
-                    <Fab size='small' className={classes.iconButton} onClick={() => setEditComment(!editComment)} >
-                        <EditIcon className={classes.icon} />
+                    <Fab size='small' className={ classes.iconButton } onClick={ () => setEditComment(!editComment) } >
+                        <EditIcon className={ classes.icon } />
                     </Fab> :
-                    <Fab size='small' className={classes.iconButton} onClick={() => { setEditComment(!editComment); props.saveComment(props.id, props.comments) }} >
-                        <ArrowForwardIcon className={classes.icon} />
+                    <Fab size='small' className={ classes.iconButton } onClick={ () => { setEditComment(!editComment); props.saveComment(props.id, props.comments) } } >
+                        <ArrowForwardIcon className={ classes.icon } />
                     </Fab>
 
             )
         }
+    }
+
+    const renderFreelancerButton = () => {
+        if (props.active) {
+            return (
+                <Fab size='small' className={ classes.iconButton } onClick={ (e) => props.goToMap(e, props.projectId) } >
+                    <VisibilityIcon className={ classes.icon } />
+                </Fab>
+            )
+        }
+        else {
+            return (
+                <Button
+                    variant="contained"
+                    classes={ { label: classes.label, root: classes.button } }
+                    onClick={ e => props.accept(e, props.description, props.title, props.price, props.customerId, props.projectId) }
+                >
+                    Accept!
+                </Button>
+
+            )
+        }
+
     }
 
     const renderComments = () => {
@@ -138,21 +161,21 @@ export default function Job(props) {
                 name="comment"
                 variant="outlined"
                 multiline
-                rows={3}
-                rowsMax={5}
+                rows={ 3 }
+                rowsMax={ 5 }
                 fullWidth
-                value={props.comments}
-                onChange={(event) => props.editComment(event, props.id)}
+                value={ props.comments }
+                onChange={ (event) => props.editComment(event, props.id) }
                 id="comment"
                 label="comment"
             />
         </form>);
         const notEditing = (<>
-            <label style={{ fontSize: '2.5vmin', fontWeight: 400, marginTop: 10, color: '#3b1687' }} >
+            <label style={ { fontSize: '2.5vmin', fontWeight: 400, marginTop: 10, color: '#3b1687' } } >
                 Author Comments:
             </label>
-            <p style={{ marginTop: 5, fontSize: '2.2vmin' }}>
-                {props.comments}
+            <p style={ { marginTop: 5, fontSize: '2.2vmin' } }>
+                { props.comments }
             </p>
         </>);
 
@@ -171,38 +194,32 @@ export default function Job(props) {
     }
 
     return (
-        <Card style={{ boxShadow: 'none', margin: 30 }}>
-            <Card className={classes.container} style={{ borderColor: color() }}>
-                {props.active ? <h6 className={classes.active} >active</h6> : <h6 className={classes.active} >Job offer</h6>}
-                <SimpleBar style={{ maxHeight: '100%', paddingRight: 15 }}>
-                    <div className={classes.content}>
-                        <h1 style={{ display: 'inline', marginTop: 10, marginBottom: 0, fontSize: '3vmin', fontWeight: 400, color: '#3b1687' }}>
-                            {props.title}
+        <Card style={ { boxShadow: 'none', margin: 30 } }>
+            <Card className={ classes.container } style={ { borderColor: color() } }>
+                { props.active ? <h6 className={ classes.active } >active</h6> : <h6 className={ classes.active } >Job offer</h6> }
+                <SimpleBar style={ { maxHeight: '100%', paddingRight: 15 } }>
+                    <div className={ classes.content }>
+                        <h1 style={ { display: 'inline', marginTop: 10, marginBottom: 0, fontSize: '3vmin', fontWeight: 400, color: '#3b1687' } }>
+                            { props.title }
                         </h1>
 
-                        <p style={{ fontSize: '2vmin' }}>
-                            {props.description}
+                        <p style={ { fontSize: '2vmin' } }>
+                            { props.description }
                         </p>
-                        {renderComments()}
+                        { renderComments() }
                     </div>
 
                 </SimpleBar>
             </Card>
-            <Card className={classes.footer} style={{ borderColor: color() }}>
-                <label style={{ height: 'fit-content', fontSize: '2.6vmin', fontWeight: 500 }}>
-                    {`${props.price}$`}
+            <Card className={ classes.footer } style={ { borderColor: color() } }>
+                <label style={ { height: 'fit-content', fontSize: '2.6vmin', fontWeight: 500 } }>
+                    { `${props.price}$` }
                 </label>
 
-                {props.role === 'freelancer' ?
-                    <Button
-                        variant="contained"
-                        classes={{ label: classes.label, root: classes.button }}
-                        onClick={e => props.accept(e, props.description, props.title, props.price, props.customerId, props.projectId)}
-                    >
-                        Accept!
-                    </Button>
+                { props.role === 'freelancer' ?
+                    renderFreelancerButton()
                     :
-                    renderButton()
+                    renderCustomerButton()
 
                 }
 

@@ -6,12 +6,10 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import MainApp from './components/mainApp';
 
 ReactDOM.render(
-  <React.StrictMode>
 
-    <Router>
-      <MainApp />
-    </Router>
-  </React.StrictMode>,
+  <Router>
+    <MainApp />
+  </Router>,
   document.getElementById('root')
 );
 
