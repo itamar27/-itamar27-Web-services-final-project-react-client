@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { URL } from '../../constants';
 import React, { useState, useContext, useEffect } from "react";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import { UserContext } from '../../userContext';
 import axios from 'axios'
@@ -38,7 +38,7 @@ export default function UserPage(props) {
     }, [user]);
 
     const getActiveJobs = () => {
-        axios.get(`http://localhost:3000/api/jobs/user/${user.id}`, { withCredentials: true, credentials: 'include' })
+        axios.get(URL + `api/jobs/user/${user.id}`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 setActiveJobs(response.data)
             })
@@ -48,7 +48,7 @@ export default function UserPage(props) {
     };
 
     const getJobOffers = () => {
-        axios.get(`http://localhost:3000/api/freelancerApi/projects/user`, { withCredentials: true, credentials: 'include' })
+        axios.get(URL + `api/freelancerApi/projects/user`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 setJobOffers(response.data)
             })
@@ -57,20 +57,19 @@ export default function UserPage(props) {
             })
     };
 
-    const goToMap = (e,projectId)=>{
+    const goToMap = (e, projectId) => {
         e.preventDefault();
         const data = {
-            jobId : projectId,
+            jobId: projectId,
         }
         history.push({
             pathname: `/user/${user.first_name}_${user.last_name}/map/${projectId}`,
-            state : data
+            state: data
         })
 
     }
 
     const handleCommentChange = (event, id) => {
-
         const index = jobOffers.findIndex(offer => offer.project_id === id);
         let newJobOffers = [...jobOffers];
         newJobOffers[index]['comment'] = event.target.value;
@@ -96,10 +95,10 @@ export default function UserPage(props) {
     };
 
     return (
-        <Paper className={classes.container}>
-            <h1 className={classes.title}>{user.first_name} welcome back!</h1>
-            {activeJobs ? <JobList goToMap = {goToMap} active={true} jobs={activeJobs} editComment={handleCommentChange} saveComment={saveComment} user={user} /> : null}
-            {jobOffers ? <JobList jobs={jobOffers} editComment={handleCommentChange} saveComment={saveComment} user={user} /> : null} 
+        <Paper className={ classes.container }>
+            <h1 className={ classes.title }>{ user.first_name } welcome back!</h1>
+            {activeJobs ? <JobList goToMap={ goToMap } active={ true } jobs={ activeJobs } editComment={ handleCommentChange } saveComment={ saveComment } user={ user } /> : null }
+            {jobOffers ? <JobList jobs={ jobOffers } editComment={ handleCommentChange } saveComment={ saveComment } user={ user } /> : null }
         </Paper >
     )
 };
