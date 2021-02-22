@@ -35,16 +35,14 @@ const useStyles = makeStyles({
         marginTop: 10,
         fontSize: '2.5vh',
         fontWeight: 500,
-        // fontFamily: 'Raleway'
     }
 });
 
 
 export default function Goal(props) {
     const classes = useStyles();
-
     return (
-        <div className={ classes.container } style={ { backgroundColor: props.color } } onClick={ props.editGoal }>
+        <div className={ classes.container } style={ { backgroundColor: props.color } } onClick={ () => props.editGoal(props.id) }>
             {props.meaningful ? <div className={ classes.flagContainer }><FlagOutlinedIcon className={ classes.flagOutlined } /></div> : null }
 
             <h1 className={ classes.title }>
@@ -66,28 +64,6 @@ export default function Goal(props) {
                 </Box>
             </Box>
         </div>
-
-        // <div className={ classes.container } style={ { backgroundColor: props.color } } onClick={ props.editGoal }>
-        //     {true ? <div className={ classes.flagContainer }><FlagOutlinedIcon className={ classes.flagOutlined } /></div> : null }
-        //     <h1 className={ classes.title }>
-        //         this is a title
-        //     </h1>
-
-        //     <p className={ classes.description }>
-        //         this is a description about a project stating somthing about it in a longer anner
-        //     </p>
-
-        //     <Box width='80%' display="flex" alignItems="center">
-        //         <Box width="90%" mr={ 1 }>
-        //             <LinearProgress variant="determinate" style={ { width: '100%' } } value={ 20 } />
-        //         </Box>
-        //         <Box minWidth={ 35 }>
-        //             <Typography variant="body2" color="textSecondary">
-        //                 { `${20}%` }
-        //             </Typography>
-        //         </Box>
-        //     </Box>
-        // </div>
     )
 }
 
