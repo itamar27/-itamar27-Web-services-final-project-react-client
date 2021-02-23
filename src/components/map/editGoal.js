@@ -8,8 +8,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { IconButton } from '@material-ui/core';
 import Slider from '@material-ui/core/Slider';
 
-
-
 const useStyles = makeStyles({
     container: {
         display: 'flex',
@@ -69,13 +67,9 @@ export default function EditGoal(props) {
 
     const classes = useStyles()
 
-
     function valuetext(value) {
         return `${value}%`;
     }
-
-
-
 
     return (
         <div className={ classes.mainContainer }>
@@ -142,7 +136,6 @@ export default function EditGoal(props) {
                     />
                 </div>
 
-                {/* { user.role === 'customer' ?} */ }
                 <Button style={ { width: '25%' } }
                     type="submit"
                     variant="contained"

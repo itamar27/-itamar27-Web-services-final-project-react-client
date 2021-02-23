@@ -13,6 +13,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
         width: '100%',
         boxShadow: 'none',
+        backgroundColor: '#FFFFFF',
     },
 });
 

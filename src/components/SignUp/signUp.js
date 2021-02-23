@@ -10,11 +10,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormControl from '@material-ui/core/FormControl';
-
 import PersonalDetails from './personalDetails';
 import CustomerDetailsInputs from './customerDetailsInputs';
 import FreelancerDetailsInputs from './freelancerDetailsInputs';
-
 import { UserContext } from '../../userContext';
 
 
@@ -52,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     buttonsContainer: {
         flexGrow: 3,
         marginTop: theme.spacing(2),
-        textalign: 'cetner',
+        textAlign: 'center',
     },
     buttonElement: {
         padding: theme.spacing(2),
@@ -103,8 +101,6 @@ export default function SignUp(match) {
             setInputs({ ...inputs, [input]: event.target.value });
     }
 
-
-
     const onSubmit = event => {
 
         event.preventDefault();
@@ -123,7 +119,6 @@ export default function SignUp(match) {
             axios.post(URL + `auth/signup`, pack)
                 .then(response => {
 
-                    // setUser(response.data.user);
                     login()
                     history.push({
                         pathname: response.data.url,

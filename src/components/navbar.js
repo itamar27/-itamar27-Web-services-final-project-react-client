@@ -15,8 +15,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: '#B3E3F8',
         height: '100%',
-
-
     },
     container: {
         display: 'flex',
@@ -36,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const NavBar = (props) => {
+export default function NavBar(props){
     const classes = useStyles();
     const { user, logout } = useContext(UserContext);
 
@@ -94,4 +92,3 @@ const NavBar = (props) => {
         </AppBar>
     );
 };
-export default NavBar;

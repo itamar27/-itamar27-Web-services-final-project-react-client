@@ -173,8 +173,6 @@ export default function Map(props) {
         )
     }
 
-
-
     if (!user) {
         return (
             <>

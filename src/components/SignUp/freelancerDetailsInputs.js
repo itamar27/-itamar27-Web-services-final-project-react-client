@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-
 import Grid from '@material-ui/core/Grid'; 
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -83,4 +82,4 @@ export default function FreelancerDetailsInputs(props) {
         </Grid>
 
     )
-}
+};

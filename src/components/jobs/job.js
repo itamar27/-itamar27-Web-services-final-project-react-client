@@ -105,7 +105,6 @@ export default function Job(props) {
 
     }
 
-
     const renderCustomerButton = () => {
 
         if (props.active) {

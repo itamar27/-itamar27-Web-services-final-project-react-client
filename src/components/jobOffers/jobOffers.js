@@ -61,16 +61,14 @@ export default function UserPage(props) {
     const [projectId, setProjectId] = useState(-1);
 
     const accept = (event, description, title, price, customerId, projectId) => {
+        
         event.preventDefault();
         setpopupTitle(title);
         setpopupDescription(description);
         setPrice(price);
         setCustomerId(customerId);
         setProjectId(projectId);
-
-
         setIsOpen(true);
-
     }
 
 
