@@ -40,13 +40,10 @@ export default function UserPage(props) {
     const classes = useStyles();
 
 
-    useEffect(() => {
-        console.log(user);
-    }, [])
-
 
     useEffect(() => {
         if (user) {
+            console.log(user);
             if (user.role === 'customer') {
                 getActiveJobs();
                 getJobOffers();
@@ -54,9 +51,7 @@ export default function UserPage(props) {
             else {
                 getFreelancerActiveJobs()
             }
-
         }
-
     }, [user]);
 
     const getActiveJobs = () => {
