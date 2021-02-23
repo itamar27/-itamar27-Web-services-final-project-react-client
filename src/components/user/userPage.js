@@ -40,13 +40,10 @@ export default function UserPage(props) {
     const classes = useStyles();
 
 
-    useEffect(() => {
-        console.log(user);
-    }, [])
-
 
     useEffect(() => {
         if (user) {
+            console.log(user);
             if (user.role === 'customer') {
                 getActiveJobs();
                 getJobOffers();
@@ -54,9 +51,7 @@ export default function UserPage(props) {
             else {
                 getFreelancerActiveJobs()
             }
-
         }
-
     }, [user]);
 
     const getActiveJobs = () => {
@@ -138,7 +133,6 @@ export default function UserPage(props) {
     return (
         <Paper className={ classes.container }>
             <h1 className={ classes.title }>{ user.first_name } welcome back!</h1>
-
             { activeJobs || jobOffers ?
                 <>
                     {activeJobs ? <JobList goToMap={ goToMap } active={ true } jobs={ activeJobs } editComment={ handleCommentChange } saveComment={ saveComment } user={ user } /> : null }
