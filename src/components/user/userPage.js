@@ -35,11 +35,13 @@ const useStyles = makeStyles({
 export default function UserPage(props) {
     const [jobOffers, setJobOffers] = useState(null);
     const [activeJobs, setActiveJobs] = useState(null);
-    const { user } = useContext(UserContext);
+    const { user, login } = useContext(UserContext);
     const history = useHistory();
     const classes = useStyles();
 
-
+    useEffect(() => {
+        login()
+    }, []);
 
     useEffect(() => {
         if (user) {
