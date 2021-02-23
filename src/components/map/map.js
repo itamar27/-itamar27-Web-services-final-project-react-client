@@ -24,7 +24,7 @@ export default function Map(props) {
         _id: 0
     }
 
-    const { user } = useContext(UserContext);
+    const { user, login } = useContext(UserContext);
     const { jobId } = useLocation().state || {};
     const [goals, setGoals] = useState([]);
     const [job, setJob] = useState({});
@@ -39,6 +39,7 @@ export default function Map(props) {
 
 
     useEffect(() => {
+        login()
         axios.get(URL + `api/jobs/${jobId}`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 setJob(response.data)
