@@ -40,6 +40,10 @@ export default function Map(props) {
 
     useEffect(() => {
         login()
+    }, []);
+
+    useEffect(() => {
+
         axios.get(URL + `api/jobs/${jobId}`, { withCredentials: true, credentials: 'include' })
             .then((response) => {
                 setJob(response.data)
@@ -49,7 +53,7 @@ export default function Map(props) {
                 console.log(err)
             })
 
-    }, []);
+    }, [jobId]);
 
 
     useEffect(() => {
