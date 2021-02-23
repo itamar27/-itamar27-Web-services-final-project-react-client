@@ -8,7 +8,8 @@ import auth from '../auth';
 import axios from 'axios';
 import { URL } from '../constants';
 
-const MainApp = () => {
+export default function MainApp(){
+
     const [user, setUser] = useState(null);
     const history = useHistory();
     const userProvider = useMemo(() => ({ user, setUser }), [user, setUser]);
@@ -21,7 +22,7 @@ const MainApp = () => {
         } else {
             auth(token, setUser, history);
         }
-    }
+    };
 
     const logout = (e) => {
         e.preventDefault();
@@ -48,6 +49,4 @@ const MainApp = () => {
             </UserContext.Provider>
         </>
     )
-}
-
-export default MainApp;
+};

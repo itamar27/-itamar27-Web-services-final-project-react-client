@@ -12,10 +12,10 @@ const useStyles = makeStyles({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-
         justifyContent: 'center',
         width: '100%',
         boxShadow: 'none',
+        backgroundColor: '#FFFFFF',
     },
     title: {
         fontWeight: '500',

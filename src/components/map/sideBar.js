@@ -32,7 +32,6 @@ export default function TemporaryDrawer(props) {
     const classes = useStyles();
     const { user } = useContext(UserContext);
 
-    // console.log(props.data);
     return (
         <div>
             <Drawer anchor={ 'right' } open={ props.open } className={ classes.drawer } classes={ { paper: classes.drawerPaper } }>
