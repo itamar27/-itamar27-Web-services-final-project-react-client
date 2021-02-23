@@ -66,7 +66,7 @@ export default function SignUp(match) {
     const classes = useStyles();
 
     const history = useHistory();
-    const { setUser } = useContext(UserContext);
+    const { setUser, login } = useContext(UserContext);
 
     const { id, first_name, last_name, email } = useLocation().state || {};
 
@@ -123,7 +123,8 @@ export default function SignUp(match) {
             axios.post(URL + `auth/signup`, pack)
                 .then(response => {
 
-                    setUser(response.data.user);
+                    // setUser(response.data.user);
+                    login()
                     history.push({
                         pathname: response.data.url,
                     })

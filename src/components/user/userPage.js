@@ -51,7 +51,7 @@ export default function UserPage(props) {
                 getFreelancerActiveJobs()
             }
         }
-    }, []);
+    }, [user]);
 
     const getActiveJobs = () => {
         axios.get(URL + `api/jobs/user/${user.id}`, { withCredentials: true, credentials: 'include' })
