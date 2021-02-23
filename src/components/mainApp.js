@@ -14,7 +14,7 @@ const MainApp = () => {
     const userProvider = useMemo(() => ({ user, setUser }), [user, setUser]);
     let isLoggedIn = false;
 
-    const login2 = () => {
+    const login = () => {
         const token = window.localStorage.getItem('userData');
         if (token === null) {
             setUser();
@@ -36,12 +36,12 @@ const MainApp = () => {
     };
 
     useEffect(() => {
-        login2();
+        login();
     }, []);
 
     return (
         <>
-            <UserContext.Provider value={ { user: userProvider.user, setUser: userProvider.setUser, login: login2, logout, isLoggedIn } }>
+            <UserContext.Provider value={ { user: userProvider.user, setUser: userProvider.setUser, login: login, logout, isLoggedIn } }>
                 <Navbar />
                 <ReactRouter />
                 <Footer />
