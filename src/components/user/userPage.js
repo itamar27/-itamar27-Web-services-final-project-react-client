@@ -43,7 +43,6 @@ export default function UserPage(props) {
 
     useEffect(() => {
         if (user) {
-            console.log(user);
             if (user.role === 'customer') {
                 getActiveJobs();
                 getJobOffers();
@@ -52,7 +51,7 @@ export default function UserPage(props) {
                 getFreelancerActiveJobs()
             }
         }
-    }, [user]);
+    }, []);
 
     const getActiveJobs = () => {
         axios.get(URL + `api/jobs/user/${user.id}`, { withCredentials: true, credentials: 'include' })
