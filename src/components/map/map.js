@@ -121,6 +121,7 @@ export default function Map(props) {
     const deleteGoal = () => {
         const newGoals = goals.filter((goal) => goal._id !== sideBarGoal._id)
         setGoals(newGoals)
+        closeSideBar()
 
     }
 
